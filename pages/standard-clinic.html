@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>固定门诊标准化流程 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .process-step {
+      counter-increment: step-counter;
+      position: relative;
+    }
+    
+    .process-step::before {
+      content: counter(step-counter);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30px;
+      height: 30px;
+      background-color: #3b82f6;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .standard-box {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .standard-box:hover {
+      border-color: #dbeafe;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .service-card {
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .kpi-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+    
+    .kpi-card.efficiency::after {
+      background-color: #3b82f6;
+    }
+    
+    .kpi-card.quality::after {
+      background-color: #10b981;
+    }
+    
+    .kpi-card.satisfaction::after {
+      background-color: #f59e0b;
+    }
+    
+    .diagram-connection {
+      position: absolute;
+      height: 2px;
+      background-color: #e5e7eb;
+      z-index: -1;
+    }
+    
+    .diagram-connection.horizontal {
+      left: 0;
+      right: 0;
+      top: 50%;
+    }
+    
+    .diagram-connection.vertical {
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      left: 50%;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+        <i class="fas fa-clipboard-check text-blue-500 text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">固定门诊标准化流程</h1>
+        <p class="text-gray-500">提供一致性、高质量的门诊服务体验</p>
+      </div>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full lg:w-2/3">
+        <!-- 标准化流程概述 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">标准化流程概述</h2>
+          
+          <div class="bg-blue-50 rounded-lg p-4 mb-5 border-l-4 border-blue-500">
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-lightbulb text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-1">什么是固定门诊标准化流程？</h3>
+                <p class="text-sm text-gray-600">
+                  固定门诊标准化流程是指在不同医疗服务点实施统一的服务标准、操作规范和质量要求，确保患者在任何一个服务点都能获得一致性的医疗体验。通过标准化流程管理，提高医疗服务效率和质量，降低医疗差错率，增强患者满意度。
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                <i class="fas fa-sync-alt text-blue-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">标准化流程</div>
+              <p class="text-xs text-gray-600 mt-1">
+                统一的诊疗路径和操作规范
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                <i class="fas fa-tasks text-green-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">质量管控</div>
+              <p class="text-xs text-gray-600 mt-1">
+                全流程质量监控和反馈优化
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                <i class="fas fa-users text-purple-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">同质化服务</div>
+              <p class="text-xs text-gray-600 mt-1">
+                不同网点提供一致性医疗体验
+              </p>
+            </div>
+          </div>
+          
+          <!-- 标准化门诊核心流程 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-4">标准化门诊核心流程</h3>
+            
+            <div class="space-y-6 pl-12">
+              <div class="process-step pt-1 pl-10">
+                <div class="font-medium text-gray-800 mb-2">接诊前准备标准</div>
+                <div class="bg-gray-50 rounded-lg p-3">
+                  <ul class="space-y-2 text-xs text-gray-600">
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>医疗设备与环境每日检查维护</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>诊前5分钟调取患者电子病历资料</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>诊室环境整洁，温度、湿度适宜</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="process-step pt-1 pl-10">
+                <div class="font-medium text-gray-800 mb-2">接诊服务标准</div>
+                <div class="bg-gray-50 rounded-lg p-3">
+                  <ul class="space-y-2 text-xs text-gray-600">
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>规范问候语："您好，我是XXX医生，请问您现在感觉如何？"</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>四看（面色、步态、情绪、陪伴）初步评估</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>标准问诊流程：主诉、现病史、既往史、家族史等</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="process-step pt-1 pl-10">
+                <div class="font-medium text-gray-800 mb-2">诊疗服务标准</div>
+                <div class="bg-gray-50 rounded-lg p-3">
+                  <ul class="space-y-2 text-xs text-gray-600">
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>常见疾病统一诊疗路径和检查流程</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>标准体格检查程序与记录格式</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>检查结果三级解读与确认机制</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="process-step pt-1 pl-10">
+                <div class="font-medium text-gray-800 mb-2">处方开具标准</div>
+                <div class="bg-gray-50 rounded-lg p-3">
+                  <ul class="space-y-2 text-xs text-gray-600">
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>常见病种标准用药目录及剂量参考</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>智能审方系统实时监控不合理用药</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>处方药品不良反应及注意事项必须告知</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="process-step pt-1 pl-10">
+                <div class="font-medium text-gray-800 mb-2">健康教育标准</div>
+                <div class="bg-gray-50 rounded-lg p-3">
+                  <ul class="space-y-2 text-xs text-gray-600">
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>疾病知识标准化解读话术</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>生活方式指导与饮食建议规范</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>用药指导与不良反应监测告知</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="process-step pt-1 pl-10">
+                <div class="font-medium text-gray-800 mb-2">随访管理标准</div>
+                <div class="bg-gray-50 rounded-lg p-3">
+                  <ul class="space-y-2 text-xs text-gray-600">
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>不同疾病分级随访时间表</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>随访内容与指标记录标准</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check-circle text-blue-500 mr-2 mt-0.5"></i>
+                      <span>异常情况处理与转诊流程</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 标准门诊服务规范 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">标准门诊服务规范</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div class="standard-box p-4">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-clock text-blue-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">时间标准</div>
+              </div>
+              
+              <div class="space-y-3 pl-12">
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">候诊时间：</span>
+                  普通门诊 ≤ 20分钟，专家门诊 ≤ 30分钟
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">问诊时间：</span>
+                  初诊 ≥ 10分钟，复诊 ≥ 5分钟
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">检查等待：</span>
+                  常规检查 ≤ 15分钟，特殊检查预约时间点
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">取药时间：</span>
+                  ≤ 10分钟
+                </div>
+              </div>
+            </div>
+            
+            <div class="standard-box p-4">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-user-md text-green-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">医护行为规范</div>
+              </div>
+              
+              <div class="space-y-3 pl-12">
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">服饰要求：</span>
+                  统一工作服装，佩戴工牌，保持整洁
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">交流规范：</span>
+                  使用标准化问候语，保持微笑，语速适中
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">解释说明：</span>
+                  避免专业术语，使用通俗易懂的语言
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">冲突处理：</span>
+                  四步法处理冲突：倾听-理解-解释-解决
+                </div>
+              </div>
+            </div>
+            
+            <div class="standard-box p-4">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-clipboard-list text-purple-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">文书管理规范</div>
+              </div>
+              
+              <div class="space-y-3 pl-12">
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">病历书写：</span>
+                  SOAP格式规范记录，统一术语与缩写
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">检查单填写：</span>
+                  标准化检查申请单填写格式与要求
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">处方书写：</span>
+                  规范的处方格式与药品信息记录
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">资料归档：</span>
+                  电子病历24小时内完成归档审核
+                </div>
+              </div>
+            </div>
+            
+            <div class="standard-box p-4">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-star text-yellow-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">服务质量规范</div>
+              </div>
+              
+              <div class="space-y-3 pl-12">
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">隐私保护：</span>
+                  诊疗全程保护患者隐私，信息分级授权访问
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">满意度管理：</span>
+                  每位患者离院前进行满意度评价
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">投诉处理：</span>
+                  24小时内响应，72小时内解决并反馈
+                </div>
+                
+                <div class="text-xs text-gray-600">
+                  <span class="font-medium text-gray-700 block mb-1">服务监督：</span>
+                  神秘患者每月抽查与视频监控复核
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 特色服务标准 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-4">特色服务标准</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="service-card bg-blue-50 p-4 rounded-lg">
+                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3 mx-auto">
+                  <i class="fas fa-child text-blue-500"></i>
+                </div>
+                <div class="text-center">
+                  <div class="font-medium text-gray-800 mb-2">儿童友好门诊</div>
+                  <ul class="text-xs text-gray-600 space-y-1 text-left">
+                    <li>• 专设儿童游戏区与绘本角</li>
+                    <li>• 儿童专用诊疗设备与量表</li>
+                    <li>• 医护人员儿童心理沟通培训</li>
+                    <li>• 疫苗接种温馨提醒服务</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="service-card bg-green-50 p-4 rounded-lg">
+                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3 mx-auto">
+                  <i class="fas fa-user-friends text-green-500"></i>
+                </div>
+                <div class="text-center">
+                  <div class="font-medium text-gray-800 mb-2">老年人关怀服务</div>
+                  <ul class="text-xs text-gray-600 space-y-1 text-left">
+                    <li>• 老年人优先就诊绿色通道</li>
+                    <li>• 大字版健康教育资料</li>
+                    <li>• 一对一用药指导服务</li>
+                    <li>• 随访电话定期问候</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="service-card bg-purple-50 p-4 rounded-lg">
+                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3 mx-auto">
+                  <i class="fas fa-globe text-purple-500"></i>
+                </div>
+                <div class="text-center">
+                  <div class="font-medium text-gray-800 mb-2">一站式慢病管理</div>
+                  <ul class="text-xs text-gray-600 space-y-1 text-left">
+                    <li>• 专病档案建立与跟踪</li>
+                    <li>• 慢病长处方制度</li>
+                    <li>• 分级随访与风险预警</li>
+                    <li>• 专病健康教育课堂</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-1/3">
+        <!-- 标准化管理体系 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">标准化管理体系</h3>
+          
+          <div class="relative mb-5">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-center p-4 bg-blue-50 rounded-lg relative">
+                <div class="diagram-connection horizontal"></div>
+                <div class="font-medium text-gray-800 mb-1 text-sm">标准制定</div>
+                <p class="text-xs text-gray-600">
+                  医疗专家团队基于临床实践制定标准
+                </p>
+              </div>
+              
+              <div class="text-center p-4 bg-green-50 rounded-lg relative">
+                <div class="diagram-connection horizontal"></div>
+                <div class="font-medium text-gray-800 mb-1 text-sm">标准培训</div>
+                <p class="text-xs text-gray-600">
+                  全员培训与考核认证体系
+                </p>
+              </div>
+              
+              <div class="text-center p-4 bg-yellow-50 rounded-lg relative">
+                <div class="diagram-connection horizontal"></div>
+                <div class="font-medium text-gray-800 mb-1 text-sm">标准执行</div>
+                <p class="text-xs text-gray-600">
+                  各级医疗机构严格执行标准
+                </p>
+              </div>
+              
+              <div class="text-center p-4 bg-purple-50 rounded-lg relative">
+                <div class="diagram-connection horizontal"></div>
+                <div class="font-medium text-gray-800 mb-1 text-sm">标准监督</div>
+                <p class="text-xs text-gray-600">
+                  多维度质量监控与督导
+                </p>
+              </div>
+            </div>
+            
+            <div class="w-full text-center mt-4 p-4 bg-red-50 rounded-lg">
+              <div class="font-medium text-gray-800 mb-1 text-sm">标准优化</div>
+              <p class="text-xs text-gray-600">
+                持续改进与动态更新标准
+              </p>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <h4 class="font-medium text-gray-800 mb-3 text-sm">关键管理工具</h4>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-book text-blue-500 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800 mb-1">标准操作手册</div>
+                  <p class="text-xs text-gray-600">
+                    详细的服务流程与操作规范，包括标准话术、检查程序等内容。
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-clipboard-check text-green-500 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800 mb-1">质量检查清单</div>
+                  <p class="text-xs text-gray-600">
+                    服务质量评估工具，包含100+检查项目，用于自查与质控评估。
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-chart-line text-purple-500 text-sm"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800 mb-1">数据分析系统</div>
+                  <p class="text-xs text-gray-600">
+                    实时监控各项KPI指标，自动识别异常并触发预警机制。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 标准化成效 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">标准化成效</h3>
+          
+          <div class="space-y-4">
+            <div class="kpi-card efficiency bg-gray-50 p-4 rounded-lg">
+              <div class="flex justify-between items-center mb-2">
+                <div class="text-sm font-medium text-gray-800">运营效率</div>
+                <div class="text-xs text-blue-500 font-medium">+42%</div>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <div class="text-xs text-gray-600 w-28">平均就诊时长：</div>
+                  <div class="flex-1">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="bg-blue-500 h-2 rounded-full" style="width: 42%"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-600 ml-2 whitespace-nowrap">↓ 58%</div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="text-xs text-gray-600 w-28">医生工作效率：</div>
+                  <div class="flex-1">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="bg-blue-500 h-2 rounded-full" style="width: 35%"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-600 ml-2 whitespace-nowrap">↑ 35%</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="kpi-card quality bg-gray-50 p-4 rounded-lg">
+              <div class="flex justify-between items-center mb-2">
+                <div class="text-sm font-medium text-gray-800">服务质量</div>
+                <div class="text-xs text-green-500 font-medium">+67%</div>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <div class="text-xs text-gray-600 w-28">医疗差错率：</div>
+                  <div class="flex-1">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-600 ml-2 whitespace-nowrap">↓ 85%</div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="text-xs text-gray-600 w-28">诊断准确率：</div>
+                  <div class="flex-1">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="bg-green-500 h-2 rounded-full" style="width: 28%"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-600 ml-2 whitespace-nowrap">↑ 28%</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="kpi-card satisfaction bg-gray-50 p-4 rounded-lg">
+              <div class="flex justify-between items-center mb-2">
+                <div class="text-sm font-medium text-gray-800">患者满意度</div>
+                <div class="text-xs text-yellow-500 font-medium">+29%</div>
+              </div>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <div class="text-xs text-gray-600 w-28">服务体验：</div>
+                  <div class="flex-1">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="bg-yellow-500 h-2 rounded-full" style="width: 32%"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-600 ml-2 whitespace-nowrap">↑ 32%</div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="text-xs text-gray-600 w-28">投诉率：</div>
+                  <div class="flex-1">
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="bg-yellow-500 h-2 rounded-full" style="width: 72%"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-600 ml-2 whitespace-nowrap">↓ 72%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-xs hover:bg-blue-600 transition">
+              查看详细数据报告
+            </button>
+          </div>
+        </div>
+        
+        <!-- 网点覆盖 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">标准门诊网点</h3>
+          
+          <div class="relative mb-4">
+            <img src="https://via.placeholder.com/400x200/f0f9ff/1e40af?text=门诊网点分布图" class="w-full h-40 object-cover rounded-lg" alt="门诊网点分布">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg"></div>
+            <div class="absolute bottom-3 left-3 text-white">
+              <div class="font-semibold mb-1">已覆盖全国38个城市</div>
+              <div class="text-xs">182家标准化门诊网点</div>
+            </div>
+          </div>
+          
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between items-center">
+              <div class="text-xs font-medium text-gray-800">一线城市覆盖</div>
+              <div class="text-xs text-gray-600">48家</div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" style="width: 80%"></div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div class="text-xs font-medium text-gray-800">二线城市覆盖</div>
+              <div class="text-xs text-gray-600">86家</div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" style="width: 65%"></div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <div class="text-xs font-medium text-gray-800">三四线城市覆盖</div>
+              <div class="text-xs text-gray-600">48家</div>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" style="width: 30%"></div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4 text-center">
+            <p class="text-xs text-gray-600 mb-3">
+              2025年目标: 覆盖全国100+城市，建设500+标准化门诊网点
+            </p>
+            <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-xs hover:bg-gray-200 transition">
+              查找附近门诊
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 标准化实施步骤 -->
+    <div class="bg-white rounded-xl shadow-sm p-5 mt-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-4">标准化实施步骤</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div class="p-4 bg-blue-50 rounded-lg text-center">
+          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3 mx-auto">
+            <i class="fas fa-search text-blue-500"></i>
+          </div>
+          <div class="font-medium text-gray-800 mb-1 text-sm">现状评估</div>
+          <p class="text-xs text-gray-600">
+            诊断现有流程、找出问题点、确定优化方向
+          </p>
+        </div>
+        
+        <div class="p-4 bg-green-50 rounded-lg text-center">
+          <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3 mx-auto">
+            <i class="fas fa-file-alt text-green-500"></i>
+          </div>
+          <div class="font-medium text-gray-800 mb-1 text-sm">标准制定</div>
+          <p class="text-xs text-gray-600">
+            专家团队开发标准流程与规范手册
+          </p>
+        </div>
+        
+        <div class="p-4 bg-yellow-50 rounded-lg text-center">
+          <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center mb-3 mx-auto">
+            <i class="fas fa-graduation-cap text-yellow-500"></i>
+          </div>
+          <div class="font-medium text-gray-800 mb-1 text-sm">人员培训</div>
+          <p class="text-xs text-gray-600">
+            全员标准化培训、角色扮演与考核
+          </p>
+        </div>
+        
+        <div class="p-4 bg-purple-50 rounded-lg text-center">
+          <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3 mx-auto">
+            <i class="fas fa-play-circle text-purple-500"></i>
+          </div>
+          <div class="font-medium text-gray-800 mb-1 text-sm">试点实施</div>
+          <p class="text-xs text-gray-600">
+            选择样板网点先行试点，总结经验
+          </p>
+        </div>
+        
+        <div class="p-4 bg-red-50 rounded-lg text-center">
+          <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-3 mx-auto">
+            <i class="fas fa-expand-arrows-alt text-red-500"></i>
+          </div>
+          <div class="font-medium text-gray-800 mb-1 text-sm">全面推广</div>
+          <p class="text-xs text-gray-600">
+            优化后的标准在全网点推广实施
+          </p>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-100 pt-4 mt-5">
+        <div class="flex items-center justify-center text-sm text-gray-600">
+          <i class="fas fa-sync text-blue-500 mr-2"></i>
+          <span>标准化是持续改进的过程，而非一次性项目，需定期复盘与优化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html> 

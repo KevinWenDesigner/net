@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慢病管理中心 - 汉唐互联网+医疗服务模式</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #edf2f7;
+      overflow: hidden;
+    }
+    
+    .progress-value {
+      height: 100%;
+      border-radius: 4px;
+    }
+    
+    .card-shadow {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .card-shadow:hover {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(-5px);
+    }
+    
+    .custom-tooltip {
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .custom-tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    
+    .expert-card {
+      transition: all 0.3s ease;
+    }
+    
+    .expert-card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+        <i class="fas fa-stethoscope text-blue-500 text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">慢病管理中心</h1>
+        <p class="text-gray-500">专业的慢性疾病健康管理服务</p>
+      </div>
+    </div>
+    
+    <!-- 主内容区域 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- 左侧和中间内容区域 -->
+      <div class="lg:col-span-8">
+        <!-- 汉唐医疗集团介绍 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">汉唐医疗集团介绍</h2>
+          
+          <div class="bg-blue-50 rounded-lg p-4 mb-5 border-l-4 border-blue-500">
+            <p class="text-gray-700 mb-3">
+              汉唐医疗集团位于陕西省宝鸡市，是一家集医疗、教学、科研、预防、康复为一体的现代化医疗集团。集团拥有完善的区域医疗服务网络，为宝鸡市及周边地区居民提供全面的医疗健康服务。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-2">医疗机构组成</h3>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <i class="fas fa-hospital text-blue-500 mt-1 mr-2"></i>
+                    <span class="text-sm">三甲医院：宝鸡高新医院</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-hospital-alt text-blue-500 mt-1 mr-2"></i>
+                    <span class="text-sm">二级医院：蔡家坡普安医院、明德医院、高新骨科医院</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-clinic-medical text-blue-500 mt-1 mr-2"></i>
+                    <span class="text-sm">一级医院：仁济医院、经二路社区卫生服务中心、东风路社区卫生服务中心、宝铁站</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-2">医疗资源</h3>
+                <ul class="space-y-2">
+                  <li class="flex items-start">
+                    <i class="fas fa-bed text-blue-500 mt-1 mr-2"></i>
+                    <span class="text-sm">总床位数：2200余张</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-user-md text-blue-500 mt-1 mr-2"></i>
+                    <span class="text-sm">专业医护团队：覆盖各临床专科</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-network-wired text-blue-500 mt-1 mr-2"></i>
+                    <span class="text-sm">服务网络：集团内医疗机构和宝鸡市区县范围医院</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <h2 class="text-xl font-bold text-gray-800 mb-4">慢病管理介绍</h2>
+          
+          <p class="text-gray-600 mb-4">
+            汉唐互联网+医疗服务模式的慢病管理中心，致力于为慢性病患者提供全面、连续、个性化的健康管理服务。通过整合集团内医疗资源，建立标准化的慢病管理流程，帮助患者有效控制疾病，提高生活质量。
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <div class="text-center p-4 bg-gray-50 rounded-lg transform transition-transform hover:-translate-y-1 hover:shadow-md">
+              <div class="inline-block w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                <i class="fas fa-clipboard-check text-blue-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">规范化管理</div>
+              <p class="text-xs text-gray-600 mt-1">
+                基于循证医学，实施标准化疾病管理流程
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg transform transition-transform hover:-translate-y-1 hover:shadow-md">
+              <div class="inline-block w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                <i class="fas fa-user-md text-green-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">专业团队</div>
+              <p class="text-xs text-gray-600 mt-1">
+                多学科专业医疗团队提供综合解决方案
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg transform transition-transform hover:-translate-y-1 hover:shadow-md">
+              <div class="inline-block w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                <i class="fas fa-mobile-alt text-purple-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">数字化赋能</div>
+              <p class="text-xs text-gray-600 mt-1">
+                运用数字化工具实现远程监测与精准干预
+              </p>
+            </div>
+          </div>
+          
+          <!-- 慢病管理中心定位 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-3">中心定位与价值</h3>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex flex-col md:flex-row">
+                <div class="w-full md:w-1/2 pr-0 md:pr-3 mb-4 md:mb-0">
+                  <h4 class="font-medium text-gray-800 mb-2">
+                    <i class="fas fa-bullseye text-red-500 mr-2"></i>服务定位
+                  </h4>
+                  <ul class="list-disc pl-5 text-xs text-gray-600 space-y-1">
+                    <li>慢性疾病专业管理平台</li>
+                    <li>医患互动的服务平台</li>
+                    <li>健康教育的知识中心</li>
+                    <li>医疗资源整合平台</li>
+                    <li>智能健康管理引擎</li>
+                  </ul>
+                </div>
+                <div class="w-full md:w-1/2 pl-0 md:pl-3 border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0 md:pl-4">
+                  <h4 class="font-medium text-gray-800 mb-2">
+                    <i class="fas fa-gem text-amber-500 mr-2"></i>核心价值
+                  </h4>
+                  <ul class="list-disc pl-5 text-xs text-gray-600 space-y-1">
+                    <li>提高慢病控制率与达标率</li>
+                    <li>降低并发症发生风险</li>
+                    <li>减少住院率与医疗支出</li>
+                    <li>提升患者自我管理能力</li>
+                    <li>改善患者生活质量</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 慢病管理服务体系 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">慢病管理服务体系</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div class="disease-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-heart text-red-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">心血管疾病管理</div>
+              </div>
+              
+              <p class="text-xs text-gray-600 mb-3">
+                针对高血压、冠心病、心力衰竭等心血管疾病患者，提供规范化用药指导、健康生活方式干预、定期随访评估等服务
+              </p>
+              
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-red-100 text-red-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">血压远程监测与干预</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-red-100 text-red-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">心脏健康评估与方案定制</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-red-100 text-red-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">心血管风险预警与管理</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="disease-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-tint text-blue-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">糖尿病管理</div>
+              </div>
+              
+              <p class="text-xs text-gray-600 mb-3">
+                为糖尿病患者提供血糖监测、饮食指导、用药管理、并发症筛查等全方位管理服务
+              </p>
+              
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">血糖动态监测与管理</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">糖尿病饮食个性化方案</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">糖尿病并发症筛查与预防</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="disease-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-lungs text-yellow-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">呼吸系统疾病管理</div>
+              </div>
+              
+              <p class="text-xs text-gray-600 mb-3">
+                针对慢性阻塞性肺疾病、哮喘等慢性呼吸系统疾病患者，提供呼吸功能评估、用药指导、呼吸康复等服务
+              </p>
+              
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-yellow-100 text-yellow-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">肺功能监测与评估</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-yellow-100 text-yellow-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">呼吸系统康复指导</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-yellow-100 text-yellow-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">急性发作预防与控制</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="disease-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-kidneys text-green-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">慢性肾病管理</div>
+              </div>
+              
+              <p class="text-xs text-gray-600 mb-3">
+                为慢性肾病患者提供肾功能评估、营养干预、用药指导，延缓肾功能恶化，预防并发症
+              </p>
+              
+              <div class="space-y-2">
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-green-100 text-green-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">肾功能定期评估</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-green-100 text-green-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">肾病营养方案定制</span>
+                </div>
+                <div class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-green-100 text-green-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-600">肾功能保护综合干预</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 慢病管理流程 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-3">慢病管理流程</h3>
+            
+            <div class="space-y-4 pl-4">
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">第一步：健康评估</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  通过全面的健康体检、病史收集、风险因素评估，建立个人健康档案。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">健康体检</span>
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">既往病史</span>
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">风险评估</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">第二步：制定方案</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  根据评估结果，由专家团队制定个性化的慢病管理方案。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">用药方案</span>
+                  <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">生活干预</span>
+                  <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">随访计划</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">第三步：执行干预</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  实施管理方案，包括规范用药、生活方式干预、风险控制等措施。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-purple-50 text-purple-600 rounded px-2 py-0.5 text-xs">用药管理</span>
+                  <span class="inline-block bg-purple-50 text-purple-600 rounded px-2 py-0.5 text-xs">健康指导</span>
+                  <span class="inline-block bg-purple-50 text-purple-600 rounded px-2 py-0.5 text-xs">行为改变</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">第四步：监测随访</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  定期进行健康监测与随访，评估干预效果，及时调整方案。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-amber-50 text-amber-600 rounded px-2 py-0.5 text-xs">健康监测</span>
+                  <span class="inline-block bg-amber-50 text-amber-600 rounded px-2 py-0.5 text-xs">效果评估</span>
+                  <span class="inline-block bg-amber-50 text-amber-600 rounded px-2 py-0.5 text-xs">方案调整</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">第五步：持续优化</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  根据患者病情变化与新的医学证据，持续优化管理方案。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-red-50 text-red-600 rounded px-2 py-0.5 text-xs">定期评估</span>
+                  <span class="inline-block bg-red-50 text-red-600 rounded px-2 py-0.5 text-xs">方案更新</span>
+                  <span class="inline-block bg-red-50 text-red-600 rounded px-2 py-0.5 text-xs">长期维护</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="lg:col-span-4">
+        <!-- 慢病管理数据 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-5">慢病管理数据</h2>
+          
+          <div class="grid grid-cols-2 gap-5 mb-6">
+            <div class="stat-card p-4 bg-blue-50 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-user-injured text-blue-500"></i>
+                </div>
+                <span class="text-sm text-gray-600">管理患者数</span>
+              </div>
+              <div class="font-bold text-gray-800 text-2xl">126,583</div>
+              <div class="text-sm text-blue-500">
+                <i class="fas fa-arrow-up mr-1"></i>16.8% 较上年
+              </div>
+            </div>
+            
+            <div class="stat-card p-4 bg-green-50 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-clipboard-check text-green-500"></i>
+                </div>
+                <span class="text-sm text-gray-600">疾病达标率</span>
+              </div>
+              <div class="font-bold text-gray-800 text-2xl">72.6%</div>
+              <div class="text-sm text-green-500">
+                <i class="fas fa-arrow-up mr-1"></i>8.3% 较上年
+              </div>
+            </div>
+            
+            <div class="stat-card p-4 bg-purple-50 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-hospital-user text-purple-500"></i>
+                </div>
+                <span class="text-sm text-gray-600">住院率降低</span>
+              </div>
+              <div class="font-bold text-gray-800 text-2xl">32.4%</div>
+              <div class="text-sm text-purple-500">
+                <i class="fas fa-arrow-up mr-1"></i>5.7% 较上年
+              </div>
+            </div>
+            
+            <div class="stat-card p-4 bg-amber-50 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-file-medical-alt text-amber-500"></i>
+                </div>
+                <span class="text-sm text-gray-600">健康评分提升</span>
+              </div>
+              <div class="font-bold text-gray-800 text-2xl">24.8%</div>
+              <div class="text-sm text-amber-500">
+                <i class="fas fa-arrow-up mr-1"></i>6.2% 较上年
+              </div>
+            </div>
+          </div>
+          
+          <!-- 慢病分布情况 -->
+          <div class="border-t border-gray-100 pt-5 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-4">
+              <i class="fas fa-chart-pie mr-2 text-blue-500"></i>
+              慢病分布情况
+            </h3>
+            
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-gray-600">高血压</span>
+                <span class="text-sm font-medium text-gray-700">38.5%</span>
+              </div>
+              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-red-400 rounded-full" style="width: 38.5%"></div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-gray-600">糖尿病</span>
+                <span class="text-sm font-medium text-gray-700">26.3%</span>
+              </div>
+              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-400 rounded-full" style="width: 26.3%"></div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-gray-600">慢性呼吸系统疾病</span>
+                <span class="text-sm font-medium text-gray-700">15.8%</span>
+              </div>
+              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-yellow-400 rounded-full" style="width: 15.8%"></div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-gray-600">冠心病</span>
+                <span class="text-sm font-medium text-gray-700">12.4%</span>
+              </div>
+              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-purple-400 rounded-full" style="width: 12.4%"></div>
+              </div>
+            </div>
+            
+            <div class="w-full">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm text-gray-600">其他</span>
+                <span class="text-sm font-medium text-gray-700">7.0%</span>
+              </div>
+              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gray-400 rounded-full" style="width: 7.0%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 管理效果对比 -->
+          <div class="border-t border-gray-100 pt-5 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-4">
+              <i class="fas fa-chart-line mr-2 text-green-500"></i>
+              管理效果对比
+            </h3>
+            
+            <div class="space-y-4">
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="text-sm font-medium text-gray-700 mb-3">高血压达标率</h4>
+                <div class="flex items-center">
+                  <div class="w-24 text-center">
+                    <div class="text-xs text-gray-500 mb-1">管理前</div>
+                    <div class="font-medium text-red-500">46.2%</div>
+                  </div>
+                  <div class="flex-1 px-3">
+                    <div class="h-2 bg-gray-200 rounded-full relative">
+                      <div class="absolute w-3 h-3 bg-white border-2 border-green-500 rounded-full top-1/2 transform -translate-y-1/2" style="left: 46.2%"></div>
+                      <div class="absolute w-3 h-3 bg-white border-2 border-blue-500 rounded-full top-1/2 transform -translate-y-1/2" style="left: 68.5%"></div>
+                      <div class="h-0.5 bg-gray-300 absolute top-1/2 transform -translate-y-1/2" style="left: 46.2%; right: 31.5%"></div>
+                    </div>
+                  </div>
+                  <div class="w-24 text-center">
+                    <div class="text-xs text-gray-500 mb-1">管理后</div>
+                    <div class="font-medium text-blue-500">68.5%</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="text-sm font-medium text-gray-700 mb-3">糖尿病血糖达标率</h4>
+                <div class="flex items-center">
+                  <div class="w-24 text-center">
+                    <div class="text-xs text-gray-500 mb-1">管理前</div>
+                    <div class="font-medium text-red-500">38.7%</div>
+                  </div>
+                  <div class="flex-1 px-3">
+                    <div class="h-2 bg-gray-200 rounded-full relative">
+                      <div class="absolute w-3 h-3 bg-white border-2 border-green-500 rounded-full top-1/2 transform -translate-y-1/2" style="left: 38.7%"></div>
+                      <div class="absolute w-3 h-3 bg-white border-2 border-blue-500 rounded-full top-1/2 transform -translate-y-1/2" style="left: 63.2%"></div>
+                      <div class="h-0.5 bg-gray-300 absolute top-1/2 transform -translate-y-1/2" style="left: 38.7%; right: 36.8%"></div>
+                    </div>
+                  </div>
+                  <div class="w-24 text-center">
+                    <div class="text-xs text-gray-500 mb-1">管理后</div>
+                    <div class="font-medium text-blue-500">63.2%</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h4 class="text-sm font-medium text-gray-700 mb-3">慢阻肺急性发作率</h4>
+                <div class="flex items-center">
+                  <div class="w-24 text-center">
+                    <div class="text-xs text-gray-500 mb-1">管理前</div>
+                    <div class="font-medium text-red-500">42.3%</div>
+                  </div>
+                  <div class="flex-1 px-3">
+                    <div class="h-2 bg-gray-200 rounded-full relative">
+                      <div class="absolute w-3 h-3 bg-white border-2 border-green-500 rounded-full top-1/2 transform -translate-y-1/2" style="left: 42.3%"></div>
+                      <div class="absolute w-3 h-3 bg-white border-2 border-blue-500 rounded-full top-1/2 transform -translate-y-1/2" style="left: 18.5%"></div>
+                      <div class="h-0.5 bg-gray-300 absolute top-1/2 transform -translate-y-1/2" style="left: 18.5%; right: 57.7%"></div>
+                    </div>
+                  </div>
+                  <div class="w-24 text-center">
+                    <div class="text-xs text-gray-500 mb-1">管理后</div>
+                    <div class="font-medium text-blue-500">18.5%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 典型案例 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-4">
+              <i class="fas fa-user-check mr-2 text-blue-500"></i>
+              典型案例
+            </h3>
+            
+            <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <div class="p-4">
+                <div class="flex items-center mb-3">
+                  <img src="https://via.placeholder.com/50" class="w-12 h-12 rounded-full object-cover mr-3" alt="患者照片">
+                  <div>
+                    <h4 class="font-semibold text-gray-800">陈女士（62岁）</h4>
+                    <p class="text-sm text-gray-500">宝鸡市民，2型糖尿病患者</p>
+                  </div>
+                </div>
+                
+                <p class="text-sm text-gray-600 mb-3">
+                  陈女士患有2型糖尿病8年，入组管理前血糖控制不佳，糖化血红蛋白8.6%。通过我们的慢病管理服务，为其提供规范化用药指导、营养膳食方案和运动处方，同时配备智能血糖仪进行远程监测。
+                </p>
+                
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                  <div class="p-2 bg-gray-50 rounded">
+                    <div class="text-xs text-gray-500 mb-1">管理前糖化血红蛋白</div>
+                    <div class="text-base font-medium text-red-500">8.6%</div>
+                  </div>
+                  <div class="p-2 bg-gray-50 rounded">
+                    <div class="text-xs text-gray-500 mb-1">管理后糖化血红蛋白</div>
+                    <div class="text-base font-medium text-green-500">6.4%</div>
+                  </div>
+                </div>
+                
+                <div class="text-sm text-gray-600">
+                  管理6个月后，患者血糖达标，身体状况明显改善，日常活动能力提升，生活质量显著提高。
+                </div>
+              </div>
+              
+              <div class="bg-gray-50 border-t border-gray-200 p-3 flex justify-between items-center">
+                <span class="text-xs text-gray-500">管理周期: 2023/05 - 至今</span>
+                <button class="text-xs text-blue-600 hover:text-blue-800 font-medium">查看更多案例</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 专业团队 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6 w-full">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">专业团队</h2>
+          
+          <div class="space-y-4 w-full">
+            <div class="flex items-start p-3 bg-blue-50 rounded-lg w-full">
+              <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mr-3">
+                <i class="fas fa-user-md text-blue-500"></i>
+              </div>
+              <div class="w-full">
+                <div class="font-medium text-gray-800 mb-1">王明教授</div>
+                <div class="text-xs text-gray-500 mb-1">慢病管理中心主任 | 内分泌科专家</div>
+                <p class="text-xs text-gray-600">
+                  从事慢病管理工作25年，擅长糖尿病、高血压等慢性疾病的综合管理
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex items-start p-3 bg-green-50 rounded-lg w-full">
+              <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mr-3">
+                <i class="fas fa-user-nurse text-green-500"></i>
+              </div>
+              <div class="w-full">
+                <div class="font-medium text-gray-800 mb-1">李红医师</div>
+                <div class="text-xs text-gray-500 mb-1">临床营养师 | 健康管理专家</div>
+                <p class="text-xs text-gray-600">
+                  专注于慢病患者的饮食管理和生活方式干预，开发个性化健康方案
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex items-start p-3 bg-yellow-50 rounded-lg w-full">
+              <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center flex-shrink-0 mr-3">
+                <i class="fas fa-heartbeat text-yellow-500"></i>
+              </div>
+              <div class="w-full">
+                <div class="font-medium text-gray-800 mb-1">张伟医师</div>
+                <div class="text-xs text-gray-500 mb-1">心血管科专家 | 远程会诊主任</div>
+                <p class="text-xs text-gray-600">
+                  擅长冠心病、高血压等心血管慢病的诊疗和长期管理，建立远程监测方案
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 慢病管理咨询 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6 w-full">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">慢病管理咨询</h2>
+          
+          <p class="text-sm text-gray-600 mb-4">
+            欢迎咨询我们的慢病管理团队，获取专业的健康管理建议和个性化解决方案。
+          </p>
+          
+          <div class="grid grid-cols-2 gap-3 mb-4 w-full">
+            <div class="p-3 border border-gray-200 rounded-lg text-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-2">
+                <i class="fas fa-phone-alt text-blue-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">电话咨询</div>
+              <div class="text-xs text-gray-500">400-888-5678</div>
+            </div>
+            
+            <div class="p-3 border border-gray-200 rounded-lg text-center">
+              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-2">
+                <i class="fas fa-comment-medical text-green-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">在线咨询</div>
+              <div class="text-xs text-gray-500">工作日8:00-20:00</div>
+            </div>
+          </div>
+          
+          <a href="#" class="block w-full bg-blue-500 text-white text-center py-2 rounded-lg font-medium hover:bg-blue-600 transition">
+            预约健康咨询
+          </a>
+          
+          <div class="mt-3 text-xs text-gray-500 text-center">
+            <i class="fas fa-info-circle mr-1"></i>
+            首次咨询可获得免费健康评估报告
+          </div>
+        </div>
+        
+        <!-- 加入我们 - 与service-network.html保持样式一致 -->
+        <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-sm p-5 w-full">
+          <div class="flex flex-col md:flex-row items-center justify-between w-full">
+            <div class="text-white mb-4 md:mb-0">
+              <h3 class="text-xl font-bold mb-2">成为我们的合作伙伴</h3>
+              <p class="opacity-90">加入汉唐互联网+医疗服务模式，共同提升医疗服务质量，让优质医疗惠及更多患者</p>
+            </div>
+            <div class="flex space-x-3">
+              <button class="bg-white text-blue-600 rounded-lg px-5 py-2 font-semibold hover:bg-blue-50 transition">
+                了解合作模式
+              </button>
+              <button class="bg-blue-600 text-white border border-white rounded-lg px-5 py-2 font-semibold hover:bg-blue-700 transition">
+                立即申请
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-gray-300 py-6 rounded-lg">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <div class="flex items-center">
+              <i class="fas fa-heartbeat text-blue-400 text-2xl mr-2"></i>
+              <span class="text-white font-semibold text-lg">汉唐互联网+医疗服务模式</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-1">
+              提供全方位、一站式的医疗健康服务解决方案
+            </p>
+          </div>
+          
+          <div class="flex space-x-6">
+            <a href="#" class="text-gray-300 hover:text-blue-400 transition">
+              <i class="fab fa-weixin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-blue-400 transition">
+              <i class="fab fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-blue-400 transition">
+              <i class="fas fa-envelope text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-blue-400 transition">
+              <i class="fas fa-phone-alt text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-700 mt-4 pt-4 flex flex-col md:flex-row justify-between items-center">
+          <div class="text-xs text-gray-400">
+            © 2025 汉唐互联网+医疗服务模式. 保留所有权利.
+          </div>
+          
+          <div class="flex space-x-4 mt-2 md:mt-0">
+            <a href="#" class="text-xs text-gray-400 hover:text-gray-300 transition">隐私政策</a>
+            <a href="#" class="text-xs text-gray-400 hover:text-gray-300 transition">服务条款</a>
+            <a href="#" class="text-xs text-gray-400 hover:text-gray-300 transition">联系我们</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html> 

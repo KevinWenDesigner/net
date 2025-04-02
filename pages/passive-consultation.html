@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>被动式问诊 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .map-container {
+      height: 400px;
+      background-color: #f0f4f8;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .hospital-marker {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .hospital-marker:hover {
+      transform: scale(1.1);
+    }
+    
+    .hospital-marker.hospital {
+      background-color: #4285F4;
+      color: white;
+    }
+    
+    .hospital-marker.clinic {
+      background-color: #34A853;
+      color: white;
+    }
+    
+    .hospital-marker.health-station {
+      background-color: #FBBC05;
+      color: white;
+    }
+    
+    .hospital-marker.self-operated {
+      background-color: #EA4335;
+      color: white;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full lg:w-2/3">
+        <!-- 页面标题 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <i class="fas fa-hospital-user text-blue-500 text-xl"></i>
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-gray-800">被动式问诊</h1>
+              <p class="text-gray-500">解决交通不便患者的医疗需求，服务基层群众</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h3 class="font-semibold text-gray-800 mb-2">解决痛点</h3>
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span class="text-sm text-gray-600">交通不便患者的医疗需求</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span class="text-sm text-gray-600">慢性病药物获取需求</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                  <span class="text-sm text-gray-600">基层医疗资源不足问题</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-4">
+              <h3 class="font-semibold text-gray-800 mb-2">功能扩展</h3>
+              <ul class="space-y-2">
+                <li class="flex items-start">
+                  <i class="fas fa-plus-circle text-blue-500 mt-1 mr-2"></i>
+                  <span class="text-sm text-gray-600">症状自评工具，提前评估病情</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-plus-circle text-blue-500 mt-1 mr-2"></i>
+                  <span class="text-sm text-gray-600">远程专家会诊，提高诊疗质量</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-plus-circle text-blue-500 mt-1 mr-2"></i>
+                  <span class="text-sm text-gray-600">健康数据实时监测与预警</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 服务网络地图 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold text-gray-800">医疗服务网络</h2>
+            <div class="flex items-center space-x-2">
+              <span class="inline-flex items-center text-xs text-gray-500">
+                <span class="w-3 h-3 rounded-full bg-blue-500 mr-1"></span> 合作医院
+              </span>
+              <span class="inline-flex items-center text-xs text-gray-500">
+                <span class="w-3 h-3 rounded-full bg-green-500 mr-1"></span> 合作诊所
+              </span>
+              <span class="inline-flex items-center text-xs text-gray-500">
+                <span class="w-3 h-3 rounded-full bg-yellow-500 mr-1"></span> 卫生站
+              </span>
+              <span class="inline-flex items-center text-xs text-gray-500">
+                <span class="w-3 h-3 rounded-full bg-red-500 mr-1"></span> 自营医疗点
+              </span>
+            </div>
+          </div>
+          
+          <div class="map-container mb-3">
+            <!-- 模拟地图界面 -->
+            <div class="hospital-marker hospital" style="top: 150px; left: 200px;">
+              <i class="fas fa-hospital"></i>
+            </div>
+            <div class="hospital-marker hospital" style="top: 120px; left: 450px;">
+              <i class="fas fa-hospital"></i>
+            </div>
+            <div class="hospital-marker clinic" style="top: 200px; left: 300px;">
+              <i class="fas fa-clinic-medical"></i>
+            </div>
+            <div class="hospital-marker clinic" style="top: 300px; left: 150px;">
+              <i class="fas fa-clinic-medical"></i>
+            </div>
+            <div class="hospital-marker clinic" style="top: 250px; left: 550px;">
+              <i class="fas fa-clinic-medical"></i>
+            </div>
+            <div class="hospital-marker health-station" style="top: 320px; left: 400px;">
+              <i class="fas fa-first-aid"></i>
+            </div>
+            <div class="hospital-marker health-station" style="top: 180px; left: 600px;">
+              <i class="fas fa-first-aid"></i>
+            </div>
+            <div class="hospital-marker self-operated" style="top: 350px; left: 250px;">
+              <i class="fas fa-user-md"></i>
+            </div>
+            
+            <!-- 地图信息提示框 -->
+            <div class="absolute top-4 left-4 bg-white rounded-lg shadow-md p-3 z-10 fade-in">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-map-marked-alt text-blue-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">宝鸡市区域医疗网络</div>
+              </div>
+              <div class="text-xs text-gray-600">
+                显示 8 个医疗点，覆盖半径 30 公里
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between">
+            <div class="text-sm text-gray-500">
+              <i class="fas fa-info-circle mr-1"></i> 点击医疗点查看详细信息和服务范围
+            </div>
+            <button class="text-blue-500 text-sm hover:text-blue-700">
+              查找附近医疗点 <i class="fas fa-search ml-1"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 医疗合作网络 -->
+        <section class="bg-white py-12">
+          <div class="container mx-auto px-4">
+            <div class="text-center mb-10">
+              <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">医疗合作网络</h2>
+              <p class="text-gray-600 max-w-3xl mx-auto">
+                我们与宝鸡市多家医疗机构建立了紧密合作关系，为患者提供便捷的就医渠道和优质的医疗服务
+              </p>
+              <div class="w-20 h-1 bg-blue-500 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+              <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-6">
+                <div class="mb-4">
+                  <i class="fas fa-hospital text-blue-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">合作医院</h3>
+                <p class="text-gray-600 mb-4">
+                  与多家宝鸡地区二级医院建立合作，可为患者提供多层次的医疗保障。
+                </p>
+                <ul class="text-gray-600 space-y-2 mb-4">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡高新人民医院（二级甲等）</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>蔡家坡普安医院（二级医院）</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡仁济医院（二级医院）</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>明德医院（二级医院）</span>
+                  </li>
+                </ul>
+                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                  查看全部合作医院
+                  <i class="fas fa-arrow-right ml-1 text-sm"></i>
+                </a>
+              </div>
+              
+              <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-6">
+                <div class="mb-4">
+                  <i class="fas fa-clinic-medical text-green-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">社区医疗网点</h3>
+                <p class="text-gray-600 mb-4">
+                  与宝鸡市各区县社区医疗中心和乡镇卫生院合作，形成覆盖社区的基层医疗网络，为患者提供就近医疗服务。
+                </p>
+                <ul class="text-gray-600 space-y-2 mb-4">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡市渭滨区社区卫生服务中心</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡市金台区社区卫生服务中心</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>陈仓区社区卫生服务中心</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>凤翔区、岐山县等乡镇卫生院</span>
+                  </li>
+                </ul>
+                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                  查看全部网点分布
+                  <i class="fas fa-arrow-right ml-1 text-sm"></i>
+                </a>
+              </div>
+              
+              <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-6">
+                <div class="mb-4">
+                  <i class="fas fa-user-md text-purple-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">专科医疗资源</h3>
+                <p class="text-gray-600 mb-4">
+                  整合宝鸡市各专科医疗资源，为患者提供皮肤科、妇科、儿科、骨科等多学科专科诊疗服务。
+                </p>
+                <ul class="text-gray-600 space-y-2 mb-4">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡市妇幼保健院</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡市口腔医院</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡眼科医院</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                    <span>宝鸡骨科医院</span>
+                  </li>
+                </ul>
+                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                  探索专科资源
+                  <i class="fas fa-arrow-right ml-1 text-sm"></i>
+                </a>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-xl p-6 md:p-8">
+              <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-4">服务模式</h3>
+                  <div class="space-y-4">
+                    <div class="flex items-start">
+                      <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mr-4">
+                        <i class="fas fa-handshake text-blue-600"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-semibold text-gray-800 mb-1">合作模式</h4>
+                        <p class="text-gray-600 text-sm">
+                          与宝鸡地区医疗机构建立合作关系，通过互联网医疗平台连接线下医疗资源，为患者提供便捷医疗服务。
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                      <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mr-4">
+                        <i class="fas fa-building text-green-600"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-semibold text-gray-800 mb-1">自营模式</h4>
+                        <p class="text-gray-600 text-sm">
+                          在宝鸡市设立自营医疗服务点，提供标准化、高质量的医疗服务，与线上平台深度融合。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-4">典型案例</h3>
+                  <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex items-center mb-3">
+                      <img src="https://via.placeholder.com/50" class="w-12 h-12 rounded-full mr-3" alt="患者照片">
+                      <div>
+                        <h4 class="font-semibold text-gray-800">张先生（58岁，宝鸡市民）</h4>
+                        <p class="text-sm text-gray-500">高血压患者</p>
+                      </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">
+                      张先生是宝鸡市渭滨区居民，长期患有高血压，通过我们的被动式问诊服务连接到宝鸡市中心医院的心内科专家，得到了规范化的用药指导和生活方式建议。目前血压得到良好控制，每月定期进行线上随访，无需频繁前往医院。
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                      <span class="text-gray-500">服务开始时间: 2023/02</span>
+                      <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">查看详情</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-1/3">
+        <!-- 服务模式说明 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">服务模式</h3>
+          
+          <div class="space-y-4">
+            <!-- 合作模式 -->
+            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+              <h4 class="font-semibold text-gray-800 mb-2">合作模式</h4>
+              <p class="text-sm text-gray-600 mb-3">
+                通过线上平台联动合作医疗点，形成覆盖广泛的医疗网络，提供标准化医疗服务。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-white text-blue-600 text-xs rounded-full px-2 py-1 shadow-sm">资源共享</span>
+                <span class="bg-white text-blue-600 text-xs rounded-full px-2 py-1 shadow-sm">远程会诊</span>
+                <span class="bg-white text-blue-600 text-xs rounded-full px-2 py-1 shadow-sm">双向转诊</span>
+              </div>
+            </div>
+            
+            <!-- 自营模式 -->
+            <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
+              <h4 class="font-semibold text-gray-800 mb-2">自营模式</h4>
+              <p class="text-sm text-gray-600 mb-3">
+                在欠发达地区提供自营医疗服务，提升患者就诊便利性，推动医疗资源下沉。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-white text-red-600 text-xs rounded-full px-2 py-1 shadow-sm">标准化服务</span>
+                <span class="bg-white text-red-600 text-xs rounded-full px-2 py-1 shadow-sm">全流程质控</span>
+                <span class="bg-white text-red-600 text-xs rounded-full px-2 py-1 shadow-sm">自建团队</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 发起主体 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">发起主体</h3>
+          
+          <div class="space-y-4">
+            <!-- 合作伙伴引导 -->
+            <div class="flex">
+              <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 mr-3">
+                <i class="fas fa-handshake text-purple-500"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 mb-1">合作伙伴引导</h4>
+                <p class="text-sm text-gray-600">
+                  通过与医疗机构合作，医护人员可根据患者需求提供问诊推荐服务，助力分级诊疗制度落实。
+                </p>
+              </div>
+            </div>
+            
+            <!-- 基层医生推荐 -->
+            <div class="flex">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mr-3">
+                <i class="fas fa-user-md text-green-500"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-800 mb-1">基层医生推荐</h4>
+                <p class="text-sm text-gray-600">
+                  基层医疗机构可为患者提供初步问诊服务，平台提供更深层次的远程医疗支持，实现优质医疗资源共享。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 典型案例 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">典型案例</h3>
+          
+          <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
+            <div class="bg-gray-50 p-3 border-b border-gray-200">
+              <div class="font-semibold text-gray-800">宝鸡市金台区"健康直通车"项目</div>
+            </div>
+            <div class="p-3">
+              <p class="text-sm text-gray-600 mb-3">
+                针对宝鸡市金台区交通不便、医疗资源匮乏的问题，我们与当地卫生院合作建立健康直通车服务点，提供以下服务：
+              </p>
+              <ul class="text-sm text-gray-600 space-y-2 mb-3">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>远程问诊，连接上级医院专家资源</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>慢病药品配送服务，解决取药难问题</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>健康监测与管理，提供智能设备租赁</span>
+                </li>
+              </ul>
+              <div class="text-sm text-gray-500">
+                服务覆盖金台区7个村庄，受益人口超过5000人，大幅提升了当地居民医疗服务可及性。
+              </div>
+            </div>
+          </div>
+          
+          <button class="w-full bg-blue-500 text-white rounded-lg py-2 text-sm hover:bg-blue-600 transition">
+            查看更多案例
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html> 

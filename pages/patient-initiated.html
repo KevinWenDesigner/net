@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>患者发起模式 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    .chat-container {
+      height: 400px;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 80%;
+      margin-bottom: 15px;
+      border-radius: 18px;
+      padding: 10px 15px;
+      position: relative;
+    }
+
+    .message-patient {
+      background-color: #E3F2FD;
+      border-top-right-radius: 4px;
+      margin-left: auto;
+    }
+
+    .message-doctor {
+      background-color: #F5F5F5;
+      border-top-left-radius: 4px;
+      margin-right: auto;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .symptom-tag {
+      display: inline-block;
+      background-color: #E3F2FD;
+      border-radius: 16px;
+      padding: 5px 12px;
+      margin: 0 6px 6px 0;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .symptom-tag:hover {
+      background-color: #BBDEFB;
+    }
+
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col md:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full md:w-1/3">
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <div class="flex items-center mb-4">
+            <div class="text-lg font-bold text-gray-800">轻问诊服务</div>
+            <span class="ml-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">便捷咨询</span>
+          </div>
+          <p class="text-gray-600 text-sm mb-4">针对时间紧张、病情轻微或复诊患者的快速问诊服务。信息自助输入，医生快速响应。</p>
+          
+          <div class="mb-4">
+            <div class="font-semibold text-gray-700 mb-2">适用人群</div>
+            <ul class="text-sm text-gray-600">
+              <li class="flex items-center mb-2">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                时间紧张人士
+              </li>
+              <li class="flex items-center mb-2">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                病情轻微患者
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                需要复诊的患者
+              </li>
+            </ul>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <div class="font-semibold text-gray-700 mb-2">功能介绍</div>
+            <div class="flex flex-wrap">
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-comment-medical text-blue-500 mr-2"></i>
+                <span class="text-sm text-gray-600">快速问诊</span>
+              </div>
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-file-medical-alt text-blue-500 mr-2"></i>
+                <span class="text-sm text-gray-600">电子处方</span>
+              </div>
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-pills text-blue-500 mr-2"></i>
+                <span class="text-sm text-gray-600">线上买药</span>
+              </div>
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-history text-blue-500 mr-2"></i>
+                <span class="text-sm text-gray-600">复诊提醒</span>
+              </div>
+              <div class="w-1/2 flex items-center">
+                <i class="fas fa-brain text-blue-500 mr-2"></i>
+                <span class="text-sm text-gray-600">智能推荐</span>
+              </div>
+              <div class="w-1/2 flex items-center">
+                <i class="fas fa-file-medical text-blue-500 mr-2"></i>
+                <span class="text-sm text-gray-600">病例管理</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 医生推荐 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <div class="font-bold text-gray-800 mb-4">为您推荐的医生</div>
+          
+          <!-- 医生卡片 -->
+          <div class="border border-gray-100 rounded-lg p-3 mb-3 hover:border-blue-200 cursor-pointer transition duration-200">
+            <div class="flex">
+              <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="医生头像" class="rounded-full w-14 h-14 object-cover mr-3">
+              <div>
+                <div class="font-semibold text-gray-800">张医生</div>
+                <div class="text-sm text-gray-500">内科 | 主任医师</div>
+                <div class="mt-1 flex items-center">
+                  <div class="flex">
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-500 ml-1">4.8 (328次问诊)</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2 text-xs text-gray-600">
+              <span class="inline-block bg-blue-50 text-blue-600 rounded-full px-2 py-1 mr-1">擅长呼吸系统疾病</span>
+              <span class="inline-block bg-blue-50 text-blue-600 rounded-full px-2 py-1">慢性病管理</span>
+            </div>
+            <div class="mt-2 flex justify-between items-center">
+              <span class="text-red-500 font-semibold">¥39.9<span class="text-xs text-gray-500">/次</span></span>
+              <button class="bg-blue-500 text-white rounded-full text-sm px-4 py-1 hover:bg-blue-600 transition duration-200">立即咨询</button>
+            </div>
+          </div>
+          
+          <div class="border border-gray-100 rounded-lg p-3 mb-3 hover:border-blue-200 cursor-pointer transition duration-200">
+            <div class="flex">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="医生头像" class="rounded-full w-14 h-14 object-cover mr-3">
+              <div>
+                <div class="font-semibold text-gray-800">李医生</div>
+                <div class="text-sm text-gray-500">全科 | 副主任医师</div>
+                <div class="mt-1 flex items-center">
+                  <div class="flex">
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                  </div>
+                  <span class="text-xs text-gray-500 ml-1">5.0 (256次问诊)</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-2 text-xs text-gray-600">
+              <span class="inline-block bg-blue-50 text-blue-600 rounded-full px-2 py-1 mr-1">全科诊疗</span>
+              <span class="inline-block bg-blue-50 text-blue-600 rounded-full px-2 py-1">儿科专长</span>
+            </div>
+            <div class="mt-2 flex justify-between items-center">
+              <span class="text-red-500 font-semibold">¥49.9<span class="text-xs text-gray-500">/次</span></span>
+              <button class="bg-blue-500 text-white rounded-full text-sm px-4 py-1 hover:bg-blue-600 transition duration-200">立即咨询</button>
+            </div>
+          </div>
+          
+          <div class="text-center mt-2">
+            <a href="#" class="text-blue-500 text-sm">查看更多医生 <i class="fas fa-chevron-right text-xs"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full md:w-2/3">
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center">
+              <div class="avatar mr-3">
+                <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="医生头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="font-semibold text-gray-800">张医生</div>
+                <div class="text-xs text-gray-500">内科 | 主任医师</div>
+              </div>
+            </div>
+            <div>
+              <button class="border border-gray-200 rounded-full text-sm px-3 py-1 text-gray-500 hover:bg-gray-50 mr-2">
+                <i class="fas fa-phone-alt mr-1"></i> 电话咨询
+              </button>
+              <button class="bg-blue-500 text-white rounded-full text-sm px-3 py-1 hover:bg-blue-600">
+                <i class="fas fa-video mr-1"></i> 视频问诊
+              </button>
+            </div>
+          </div>
+          
+          <!-- 聊天区域 -->
+          <div class="chat-container bg-gray-50 rounded-lg p-4 mb-4">
+            <div class="text-center text-xs text-gray-400 mb-4">2025年4月2日 09:00</div>
+            
+            <!-- 医生消息 -->
+            <div class="flex mb-4">
+              <div class="avatar mr-2">
+                <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="医生头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="message message-doctor">
+                  您好，我是张医生，请问您有什么不舒服的症状？
+                </div>
+              </div>
+            </div>
+            
+            <!-- 患者消息 -->
+            <div class="flex justify-end mb-4">
+              <div>
+                <div class="message message-patient">
+                  医生您好，我最近总是感觉喉咙疼，咳嗽，有点发烧。
+                </div>
+              </div>
+              <div class="avatar ml-2">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="患者头像" class="w-full h-full object-cover">
+              </div>
+            </div>
+            
+            <!-- 医生消息 -->
+            <div class="flex mb-4">
+              <div class="avatar mr-2">
+                <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="医生头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="message message-doctor">
+                  好的，请问您的体温是多少？咳嗽是干咳还是有痰？症状持续多久了？
+                </div>
+              </div>
+            </div>
+            
+            <!-- 患者消息 -->
+            <div class="flex justify-end mb-4">
+              <div>
+                <div class="message message-patient">
+                  体温38.2℃，有痰，黄色的。症状已经持续三天了。
+                </div>
+              </div>
+              <div class="avatar ml-2">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="患者头像" class="w-full h-full object-cover">
+              </div>
+            </div>
+            
+            <!-- 医生消息 -->
+            <div class="flex">
+              <div class="avatar mr-2">
+                <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="医生头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="message message-doctor slide-in">
+                  从您的症状来看，可能是急性上呼吸道感染。我建议您可以使用布洛芬缓解发热症状，同时可以考虑使用头孢类抗生素和止咳祛痰药物。我会为您开具电子处方，您可以在线购买或到附近药店取药。同时建议您多喝水，注意休息。如症状持续不缓解或加重，建议您去医院进行进一步检查。
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 输入框 -->
+          <div class="border border-gray-200 rounded-lg p-3">
+            <div class="mb-3">
+              <div class="font-semibold text-gray-700 text-sm mb-2">常见症状快速选择：</div>
+              <div>
+                <span class="symptom-tag">发热</span>
+                <span class="symptom-tag">头痛</span>
+                <span class="symptom-tag">咳嗽</span>
+                <span class="symptom-tag">鼻塞</span>
+                <span class="symptom-tag">喉咙痛</span>
+                <span class="symptom-tag">乏力</span>
+                <span class="symptom-tag">肌肉酸痛</span>
+                <span class="symptom-tag">腹痛</span>
+                <span class="symptom-tag">腹泻</span>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="flex-1">
+                <input type="text" placeholder="请输入您的症状或问题..." class="w-full border-none focus:ring-0 bg-gray-50 rounded-lg px-4 py-2" />
+              </div>
+              <div class="ml-2 flex items-center">
+                <button class="text-gray-400 hover:text-gray-600 mr-2">
+                  <i class="fas fa-image text-lg"></i>
+                </button>
+                <button class="text-gray-400 hover:text-gray-600 mr-2">
+                  <i class="fas fa-microphone text-lg"></i>
+                </button>
+                <button class="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600">
+                  发送
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 智能推荐 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <div class="font-bold text-gray-800 mb-4">智能推荐的相似病例和诊疗方案</div>
+          
+          <div class="border border-gray-100 rounded-lg p-4 mb-4 hover:border-blue-200 transition duration-200">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="font-semibold text-gray-800">急性上呼吸道感染</div>
+                <div class="text-sm text-gray-500 mt-1">症状：发热、咳嗽、咽痛、鼻塞、流涕</div>
+              </div>
+              <span class="bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">相似度 92%</span>
+            </div>
+            <div class="mt-3">
+              <div class="text-sm font-medium text-gray-700">常见治疗方案：</div>
+              <ul class="text-sm text-gray-600 mt-1">
+                <li class="flex items-start mb-1">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>对症治疗：布洛芬缓解发热和疼痛</span>
+                </li>
+                <li class="flex items-start mb-1">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>抗生素：若考虑细菌感染，可使用阿莫西林或头孢类抗生素</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>祛痰药：如有痰液，可使用盐酸氨溴索</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-3 text-sm text-gray-500">
+              <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+              本推荐仅供参考，具体用药请遵医嘱
+            </div>
+          </div>
+          
+          <div class="border border-gray-100 rounded-lg p-4 hover:border-blue-200 transition duration-200">
+            <div class="flex justify-between items-start">
+              <div>
+                <div class="font-semibold text-gray-800">急性支气管炎</div>
+                <div class="text-sm text-gray-500 mt-1">症状：咳嗽、咳痰、低热、胸闷</div>
+              </div>
+              <span class="bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">相似度 76%</span>
+            </div>
+            <div class="mt-3">
+              <div class="text-sm font-medium text-gray-700">常见治疗方案：</div>
+              <ul class="text-sm text-gray-600 mt-1">
+                <li class="flex items-start mb-1">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>抗生素：根据痰液培养结果选择适当抗生素</span>
+                </li>
+                <li class="flex items-start mb-1">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>祛痰药：如沐舒坦、氨溴索等</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mt-1 mr-2"></i>
+                  <span>支气管扩张剂：如沙丁胺醇或特布他林</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-3 text-sm text-gray-500">
+              <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+              本推荐仅供参考，具体用药请遵医嘱
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html> 

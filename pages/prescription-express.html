@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在线问诊处方直通车 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .process-step {
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: #9ca3af;
+    }
+    
+    .process-step::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 24px;
+      bottom: -8px;
+      width: 2px;
+      background-color: #e5e7eb;
+      z-index: 0;
+    }
+    
+    .process-step:last-child::before {
+      display: none;
+    }
+    
+    .process-step .step-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .process-step.active {
+      color: #1f2937;
+    }
+    
+    .process-step.active .step-circle {
+      background-color: #3b82f6;
+      color: white;
+    }
+    
+    .process-step.completed .step-circle {
+      background-color: #10b981;
+      color: white;
+    }
+    
+    .medicine-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .medicine-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .prescription-paper {
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+    }
+    
+    .prescription-paper::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background-color: #3b82f6;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    
+    .prescription-item {
+      border-bottom: 1px dashed #e5e7eb;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .prescription-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+        <i class="fas fa-file-prescription text-blue-500 text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">在线问诊处方直通车</h1>
+        <p class="text-gray-500">问诊完成→处方开具→线上支付→药品配送/自取</p>
+      </div>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full lg:w-3/5">
+        <!-- 流程进度 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">处方直通车流程</h2>
+          
+          <div class="space-y-8 pl-4">
+            <div class="process-step completed">
+              <div class="step-circle">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-800">在线问诊</div>
+                <div class="text-sm text-gray-500">完成医生问诊，获取医生诊断意见</div>
+              </div>
+            </div>
+            
+            <div class="process-step active">
+              <div class="step-circle">2</div>
+              <div>
+                <div class="font-semibold text-gray-800">处方开具</div>
+                <div class="text-sm text-gray-500">医生根据病情开具电子处方</div>
+              </div>
+            </div>
+            
+            <div class="process-step">
+              <div class="step-circle">3</div>
+              <div>
+                <div class="font-semibold text-gray-600">线上支付</div>
+                <div class="text-sm text-gray-500">确认药品清单，完成线上支付</div>
+              </div>
+            </div>
+            
+            <div class="process-step">
+              <div class="step-circle">4</div>
+              <div>
+                <div class="font-semibold text-gray-600">药品配送/自取</div>
+                <div class="text-sm text-gray-500">选择配送到家或到店自取</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 处方单 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-bold text-gray-800">电子处方</h2>
+            <span class="bg-blue-100 text-blue-600 text-xs rounded-full px-2 py-1">
+              处方编号: RX20250402001
+            </span>
+          </div>
+          
+          <div class="prescription-paper mb-4">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <div class="font-semibold text-gray-800">宝鸡高新医院</div>
+                <div class="text-xs text-gray-500 mt-1">处方日期: 2025-04-02</div>
+              </div>
+              <div class="flex items-center">
+                <div class="text-sm text-gray-500 mr-2">状态:</div>
+                <span class="bg-green-100 text-green-600 text-xs rounded-full px-2 py-1">
+                  有效处方
+                </span>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+              <div>
+                <div class="text-gray-500">患者姓名</div>
+                <div class="font-semibold text-gray-800">王小明</div>
+              </div>
+              <div>
+                <div class="text-gray-500">性别/年龄</div>
+                <div class="font-semibold text-gray-800">女/35岁</div>
+              </div>
+              <div>
+                <div class="text-gray-500">诊断</div>
+                <div class="font-semibold text-gray-800">急性上呼吸道感染</div>
+              </div>
+              <div>
+                <div class="text-gray-500">处方医生</div>
+                <div class="font-semibold text-gray-800">周医生 | 呼吸内科</div>
+              </div>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-4">
+              <div class="font-semibold text-gray-800 mb-3">Rx 处方药品</div>
+              
+              <div class="space-y-3">
+                <div class="prescription-item">
+                  <div class="flex justify-between">
+                    <div class="font-medium text-gray-800">头孢呋辛酯片</div>
+                    <div class="text-gray-600">0.25g*12片/盒 × 1盒</div>
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">用法：口服，一次1片，一日2次</div>
+                </div>
+                
+                <div class="prescription-item">
+                  <div class="flex justify-between">
+                    <div class="font-medium text-gray-800">盐酸氨溴索口服溶液</div>
+                    <div class="text-gray-600">100ml/瓶 × 1瓶</div>
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">用法：口服，一次10ml，一日3次</div>
+                </div>
+                
+                <div class="prescription-item">
+                  <div class="flex justify-between">
+                    <div class="font-medium text-gray-800">布洛芬缓释胶囊</div>
+                    <div class="text-gray-600">0.3g*10粒/盒 × 1盒</div>
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">用法：口服，一次1粒，需要时服用，每日不超过2次</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-t border-gray-100 pt-4 mt-4">
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-600">
+                  处方有效期：7天（至2025-04-09）
+                </div>
+                <div class="text-blue-500 flex items-center text-sm">
+                  <i class="fas fa-qrcode mr-1"></i> 处方验证码
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between">
+            <button class="border border-gray-200 text-gray-600 rounded-lg px-4 py-2 text-sm hover:bg-gray-50">
+              <i class="fas fa-print mr-1"></i> 打印处方
+            </button>
+            <button class="bg-blue-500 text-white rounded-lg px-4 py-2 text-sm hover:bg-blue-600">
+              确认处方并下一步 <i class="fas fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-2/5">
+        <!-- 功能增强 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">增强功能</h3>
+          
+          <div class="space-y-4">
+            <div class="border border-gray-100 rounded-lg p-4 hover:border-blue-200 transition">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-sync-alt text-blue-500 text-sm"></i>
+                </div>
+                <div class="font-semibold text-gray-800">自动复购服务</div>
+              </div>
+              <p class="text-sm text-gray-600 mb-3">
+                对于常用药物，开启自动复购服务，系统会根据您的用药周期，自动提醒复购或直接下单。
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">目前无自动复购药品</div>
+                <button class="text-blue-500 text-sm hover:text-blue-700">
+                  设置
+                </button>
+              </div>
+            </div>
+            
+            <div class="border border-gray-100 rounded-lg p-4 hover:border-blue-200 transition">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-shield-alt text-green-500 text-sm"></i>
+                </div>
+                <div class="font-semibold text-gray-800">用药安全保障</div>
+              </div>
+              <p class="text-sm text-gray-600 mb-3">
+                系统会自动核对您的健康记录和用药史，检查潜在的药物过敏或相互作用风险。
+              </p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-1"></span>
+                  <span class="text-sm text-green-600">当前处方无用药风险</span>
+                </div>
+                <button class="text-blue-500 text-sm hover:text-blue-700">
+                  查看详情
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 附近药房 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">附近药房</h3>
+          
+          <div class="space-y-3">
+            <div class="border border-gray-100 rounded-lg p-3 hover:border-blue-200 transition cursor-pointer">
+              <div class="flex justify-between mb-2">
+                <div class="font-semibold text-gray-800">康泽大药房（中心店）</div>
+                <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">有库存</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-500 mb-2">
+                <i class="fas fa-map-marker-alt mr-1"></i> 距离：1.2公里
+                <span class="mx-2">|</span>
+                <i class="far fa-clock mr-1"></i> 营业至 21:00
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-600">可自取或配送（约30分钟）</div>
+                <button class="text-blue-500 text-sm hover:text-blue-700">选择</button>
+              </div>
+            </div>
+            
+            <div class="border border-gray-100 rounded-lg p-3 hover:border-blue-200 transition cursor-pointer">
+              <div class="flex justify-between mb-2">
+                <div class="font-semibold text-gray-800">益丰大药房（河畔店）</div>
+                <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">有库存</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-500 mb-2">
+                <i class="fas fa-map-marker-alt mr-1"></i> 距离：2.5公里
+                <span class="mx-2">|</span>
+                <i class="far fa-clock mr-1"></i> 营业至 22:00
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-600">可自取或配送（约45分钟）</div>
+                <button class="text-blue-500 text-sm hover:text-blue-700">选择</button>
+              </div>
+            </div>
+            
+            <div class="border border-gray-100 rounded-lg p-3 hover:border-blue-200 transition cursor-pointer">
+              <div class="flex justify-between mb-2">
+                <div class="font-semibold text-gray-800">中心医院药房</div>
+                <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">有库存</span>
+              </div>
+              <div class="flex items-center text-sm text-gray-500 mb-2">
+                <i class="fas fa-map-marker-alt mr-1"></i> 距离：3.8公里
+                <span class="mx-2">|</span>
+                <i class="far fa-clock mr-1"></i> 营业至 20:00
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="text-sm text-gray-600">仅支持自取</div>
+                <button class="text-blue-500 text-sm hover:text-blue-700">选择</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-3 text-center">
+            <button class="text-blue-500 text-sm hover:text-blue-700">
+              查看更多药房 <i class="fas fa-chevron-down ml-1"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 药品明细 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold text-gray-800">药品明细</h3>
+            <span class="text-sm text-gray-500">共3件商品</span>
+          </div>
+          
+          <div class="space-y-3 mb-4">
+            <div class="flex border-b border-gray-100 pb-3">
+              <img src="https://via.placeholder.com/60x60/f0f9ff/1e40af?text=药品" class="w-15 h-15 rounded-md mr-3" alt="药品图片">
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <div class="font-medium text-gray-800">头孢呋辛酯片</div>
+                  <div class="text-red-500 font-semibold">¥48.00</div>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">0.25g*12片/盒 × 1盒</div>
+                <div class="text-xs text-gray-500 mt-1">处方药 | 抗生素类</div>
+              </div>
+            </div>
+            
+            <div class="flex border-b border-gray-100 pb-3">
+              <img src="https://via.placeholder.com/60x60/effaf5/047857?text=药品" class="w-15 h-15 rounded-md mr-3" alt="药品图片">
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <div class="font-medium text-gray-800">盐酸氨溴索口服溶液</div>
+                  <div class="text-red-500 font-semibold">¥35.00</div>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">100ml/瓶 × 1瓶</div>
+                <div class="text-xs text-gray-500 mt-1">处方药 | 祛痰药</div>
+              </div>
+            </div>
+            
+            <div class="flex">
+              <img src="https://via.placeholder.com/60x60/fff7ed/ea580c?text=药品" class="w-15 h-15 rounded-md mr-3" alt="药品图片">
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <div class="font-medium text-gray-800">布洛芬缓释胶囊</div>
+                  <div class="text-red-500 font-semibold">¥22.00</div>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">0.3g*10粒/盒 × 1盒</div>
+                <div class="text-xs text-gray-500 mt-1">非处方药 | 解热镇痛药</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <div class="flex justify-between mb-2">
+              <div class="text-gray-600">商品金额</div>
+              <div class="font-semibold text-gray-800">¥105.00</div>
+            </div>
+            <div class="flex justify-between mb-2">
+              <div class="text-gray-600">配送费</div>
+              <div class="font-semibold text-gray-800">¥5.00</div>
+            </div>
+            <div class="flex justify-between mb-4">
+              <div class="text-gray-600">医保报销</div>
+              <div class="font-semibold text-gray-800">-¥75.00</div>
+            </div>
+            <div class="flex justify-between text-lg">
+              <div class="font-bold text-gray-800">实付金额</div>
+              <div class="font-bold text-red-500">¥35.00</div>
+            </div>
+          </div>
+          
+          <button class="mt-4 w-full bg-blue-500 text-white rounded-lg py-3 font-semibold hover:bg-blue-600 transition">
+            立即结算
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html> 

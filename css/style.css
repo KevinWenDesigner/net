@@ -1,0 +1,133 @@
+:root {
+  --primary-color: #4285F4;
+  --secondary-color: #34A853;
+  --accent-color: #FBBC05;
+  --danger-color: #EA4335;
+  --light-color: #F8F9FA;
+  --dark-color: #202124;
+  --gray-color: #80868B;
+  --body-bg: #F0F2F5;
+  --header-height: 64px;
+  --sidebar-width: 240px;
+}
+
+body {
+  font-family: 'Nunito Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--body-bg);
+  color: var(--dark-color);
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.frame-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: 600px;
+  background: white;
+}
+
+.frame-container h3 {
+  background: var(--light-color);
+  margin: 0;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100% - 40px);
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-accent {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.nav-item.active {
+  background-color: rgba(66, 133, 244, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.badge-primary {
+  background-color: var(--primary-color);
+}
+
+.badge-secondary {
+  background-color: var(--secondary-color);
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.header {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  height: var(--header-height);
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* 动画效果 */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .main-container {
+    grid-template-columns: 1fr;
+  }
+} 

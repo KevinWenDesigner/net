@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>区域检验中心 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .service-card {
+      transition: all 0.3s ease;
+      border: 1px solid #f3f4f6;
+      overflow: hidden;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-color: #dbeafe;
+    }
+    
+    .stat-card {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .equipment-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .equipment-item:hover {
+      border-color: #3b82f6;
+      background-color: #f0f9ff;
+    }
+    
+    .process-item {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .process-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10px;
+      height: 100%;
+      width: 2px;
+      background-color: #e5e7eb;
+    }
+    
+    .process-item::after {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #3b82f6;
+      z-index: 1;
+    }
+    
+    .process-item:last-child::before {
+      height: 12px;
+    }
+    
+    .test-type-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .test-type-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .chart-container {
+      height: 160px;
+      position: relative;
+    }
+    
+    .chart-bar {
+      position: absolute;
+      bottom: 0;
+      width: 24px;
+      background-color: #3b82f6;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      transition: height 1s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+        <i class="fas fa-flask text-blue-500 text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">区域检验中心</h1>
+        <p class="text-gray-500">专业医学检验服务平台</p>
+      </div>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full lg:w-2/3">
+        <!-- 区域检验中心概述 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">区域检验中心概述</h2>
+          
+          <div class="bg-blue-50 rounded-lg p-4 mb-5 border-l-4 border-blue-500">
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-info-circle text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-1">什么是区域检验中心？</h3>
+                <p class="text-sm text-gray-600">
+                  区域检验中心是整合区域内的医学检验资源，构建的集约化、标准化、专业化的医学检验服务平台。通过集中检测，规模化运作，实现检验质量的标准化、检验结果的互认共享，为区域医疗机构提供高质量、高效率的检验服务支持。
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                <i class="fas fa-compress-alt text-blue-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">资源整合</div>
+              <p class="text-xs text-gray-600 mt-1">
+                集中优质设备与专业人才
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                <i class="fas fa-clipboard-check text-green-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">质量保障</div>
+              <p class="text-xs text-gray-600 mt-1">
+                统一检验标准与流程
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                <i class="fas fa-exchange-alt text-purple-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">结果互认</div>
+              <p class="text-xs text-gray-600 mt-1">
+                检验结果区域内互认共享
+              </p>
+            </div>
+          </div>
+          
+          <!-- 区域检验中心布局 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-3">区域检验中心布局</h3>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2">
+                  <img src="https://via.placeholder.com/500x300/f0f9ff/1e40af?text=区域检验中心布局图" class="w-full h-auto rounded-lg" alt="区域检验中心布局图">
+                </div>
+                <div class="md:w-1/2 md:pl-5 pt-4 md:pt-0">
+                  <ul class="space-y-3 text-sm text-gray-600">
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">1</span>
+                      </div>
+                      <span>样本接收与处理区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-green-100 text-green-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">2</span>
+                      </div>
+                      <span>生化免疫检测区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-yellow-100 text-yellow-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">3</span>
+                      </div>
+                      <span>微生物检测区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-purple-100 text-purple-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">4</span>
+                      </div>
+                      <span>分子诊断区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-red-100 text-red-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">5</span>
+                      </div>
+                      <span>病理检测区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-indigo-100 text-indigo-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">6</span>
+                      </div>
+                      <span>质控与验证区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-pink-100 text-pink-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">7</span>
+                      </div>
+                      <span>报告审核与发布区</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 检验服务内容 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">检验服务内容</h2>
+          
+          <!-- 检验类型 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div class="service-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-vial text-blue-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">临床生化检验</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-0.5"></i>
+                  <span>肝功能（ALT、AST、GGT等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-0.5"></i>
+                  <span>肾功能（肌酐、尿素氮、尿酸等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-0.5"></i>
+                  <span>血脂（TC、TG、HDL-C、LDL-C等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-0.5"></i>
+                  <span>糖代谢（血糖、糖化血红蛋白等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-0.5"></i>
+                  <span>电解质（钠、钾、氯、钙、磷等）</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="service-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-syringe text-green-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">免疫学检验</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-0.5"></i>
+                  <span>甲状腺功能（T3、T4、TSH等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-0.5"></i>
+                  <span>性激素（FSH、LH、E2、T等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-0.5"></i>
+                  <span>肿瘤标志物（AFP、CEA、CA系列等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-0.5"></i>
+                  <span>自身免疫抗体检测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-0.5"></i>
+                  <span>过敏原检测</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="service-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-bacterium text-yellow-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">微生物学检验</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-0.5"></i>
+                  <span>细菌培养与鉴定</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-0.5"></i>
+                  <span>药敏试验</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-0.5"></i>
+                  <span>真菌检测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-0.5"></i>
+                  <span>厌氧菌培养</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-0.5"></i>
+                  <span>结核杆菌检测</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="service-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-dna text-purple-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">分子诊断</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-0.5"></i>
+                  <span>病原体核酸检测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-0.5"></i>
+                  <span>遗传病基因检测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-0.5"></i>
+                  <span>肿瘤相关基因检测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-0.5"></i>
+                  <span>药物代谢基因检测</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-0.5"></i>
+                  <span>病毒载量检测</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- 检验流程 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-4">标准化检验流程</h3>
+            
+            <div class="space-y-4 pl-4">
+              <div class="process-item">
+                <div class="font-medium text-gray-800 mb-1">样本采集与预处理</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  由医疗机构按照统一规范采集样本，进行预处理后通过专用冷链运输系统送至检验中心。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">规范采集</span>
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">冷链运输</span>
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">全程追踪</span>
+                </div>
+              </div>
+              
+              <div class="process-item">
+                <div class="font-medium text-gray-800 mb-1">样本接收与分拣</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  检验中心接收样本，进行身份核验、样本质量评估，并通过自动化分拣系统将样本分配至不同检测区域。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">条码识别</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">质量检查</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">智能分拣</span>
+                </div>
+              </div>
+              
+              <div class="process-item">
+                <div class="font-medium text-gray-800 mb-1">自动化检测分析</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  样本被送入自动化检测流水线，通过各类高精度仪器进行定量或定性分析。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">流水线检测</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">多重复核</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">实时监控</span>
+                </div>
+              </div>
+              
+              <div class="process-item">
+                <div class="font-medium text-gray-800 mb-1">质量控制与验证</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  对检测结果进行多层级质量控制，包括室内质控、室间质评等，确保检测结果准确可靠。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">质控分析</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">异常复检</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">专家审核</span>
+                </div>
+              </div>
+              
+              <div class="process-item">
+                <div class="font-medium text-gray-800 mb-1">结果审核与解读</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  专业医师对检测结果进行审核，必要时进行临床解读与建议，确保检验结果有临床意义。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">双级审核</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">AI辅助</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">专家会诊</span>
+                </div>
+              </div>
+              
+              <div class="process-item">
+                <div class="font-medium text-gray-800 mb-1">报告发送与存档</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  通过信息系统将检验报告实时发送至申请医疗机构与患者，同时进行电子归档与长期保存。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">实时推送</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">电子归档</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">隐私保护</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-1/3">
+        <!-- 检验中心运营数据 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">检验中心运营数据</h2>
+          
+          <div class="grid grid-cols-2 gap-3 mb-5">
+            <div class="stat-card bg-blue-50 p-3">
+              <div class="text-xs text-blue-500 font-medium mb-1">日均检验量</div>
+              <div class="text-xl font-bold text-gray-800">12,650</div>
+              <div class="text-xs text-gray-500 mt-1">
+                <span class="text-green-500"><i class="fas fa-arrow-up mr-1"></i>18.4%</span> 较上月
+              </div>
+            </div>
+            
+            <div class="stat-card bg-green-50 p-3">
+              <div class="text-xs text-green-500 font-medium mb-1">检验项目类型</div>
+              <div class="text-xl font-bold text-gray-800">420+</div>
+              <div class="text-xs text-gray-500 mt-1">
+                <span class="text-green-500"><i class="fas fa-arrow-up mr-1"></i>12项</span> 本季度新增
+              </div>
+            </div>
+            
+            <div class="stat-card bg-purple-50 p-3">
+              <div class="text-xs text-purple-500 font-medium mb-1">平均出报告时间</div>
+              <div class="text-xl font-bold text-gray-800">4.5h</div>
+              <div class="text-xs text-gray-500 mt-1">
+                <span class="text-green-500"><i class="fas fa-arrow-down mr-1"></i>0.8h</span> 较上季度
+              </div>
+            </div>
+            
+            <div class="stat-card bg-amber-50 p-3">
+              <div class="text-xs text-amber-500 font-medium mb-1">报告准确率</div>
+              <div class="text-xl font-bold text-gray-800">99.98%</div>
+              <div class="text-xs text-gray-500 mt-1">
+                <span class="text-green-500"><i class="fas fa-arrow-up mr-1"></i>0.05%</span> 较行业标准
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <h3 class="text-sm font-medium text-gray-800 mb-3">检验量月度趋势</h3>
+            <div class="chart-container flex items-end justify-between px-2">
+              <div style="height: 75px; left: 0%;" class="chart-bar"></div>
+              <div style="height: 90px; left: 11%;" class="chart-bar"></div>
+              <div style="height: 85px; left: 22%;" class="chart-bar"></div>
+              <div style="height: 105px; left: 33%;" class="chart-bar"></div>
+              <div style="height: 95px; left: 44%;" class="chart-bar"></div>
+              <div style="height: 115px; left: 55%;" class="chart-bar"></div>
+              <div style="height: 125px; left: 66%;" class="chart-bar"></div>
+              <div style="height: 140px; left: 77%;" class="chart-bar"></div>
+              <div style="height: 130px; left: 88%;" class="chart-bar bg-blue-600"></div>
+            </div>
+            <div class="flex justify-between text-xs text-gray-500 mt-2 px-1">
+              <span>1月</span>
+              <span>2月</span>
+              <span>3月</span>
+              <span>4月</span>
+              <span>5月</span>
+              <span>6月</span>
+              <span>7月</span>
+              <span>8月</span>
+              <span>9月</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 检验设备 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">先进检验设备</h2>
+          
+          <div class="space-y-3">
+            <div class="equipment-item p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-microscope text-blue-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">罗氏Cobas 8000模块化分析系统</div>
+                  <div class="text-xs text-gray-500 mt-0.5">全自动生化免疫分析，每小时3,000测试</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-item p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-green-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-vials text-green-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">西门子Atellica Solution</div>
+                  <div class="text-xs text-gray-500 mt-0.5">高通量免疫分析，磁性微粒技术</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-item p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-purple-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-dna text-purple-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">赛默飞Ion GeneStudio S5系统</div>
+                  <div class="text-xs text-gray-500 mt-0.5">新一代测序技术，高通量基因分析</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-item p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-yellow-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-bacteria text-yellow-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">BD BACTEC FX微生物检测系统</div>
+                  <div class="text-xs text-gray-500 mt-0.5">自动血培养，快速检测病原菌</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-item p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-red-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-robot text-red-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">Sysmex XN-9000自动化流水线</div>
+                  <div class="text-xs text-gray-500 mt-0.5">全血细胞分析，高精度血常规检测</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <a href="#" class="text-sm text-blue-500 font-medium hover:text-blue-600 hover:underline">
+              查看更多设备 <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 专家团队 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">专业检验团队</h2>
+          
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=专家" class="w-full h-full rounded-full object-cover" alt="专家照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">陈教授</div>
+                <div class="text-xs text-gray-600">检验科 | 主任医师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  国家临床检验中心技术委员会委员，擅长生化免疫检验
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=专家" class="w-full h-full rounded-full object-cover" alt="专家照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">张主任</div>
+                <div class="text-xs text-gray-600">分子诊断中心 | 副主任医师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  专注于分子诊断与基因检测，拥有10年临床经验
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=专家" class="w-full h-full rounded-full object-cover" alt="专家照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">李博士</div>
+                <div class="text-xs text-gray-600">微生物检验科 | 副主任技师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  专攻细菌耐药性研究，曾发表多篇SCI论文
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=专家" class="w-full h-full rounded-full object-cover" alt="专家照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">王技师</div>
+                <div class="text-xs text-gray-600">质量控制部 | 主管技师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  负责检验中心质量管理体系建设与监控
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <a href="#" class="text-sm text-blue-500 font-medium hover:text-blue-600 hover:underline">
+              查看完整专家团队 <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部内容 -->
+    <div class="mb-6">
+      <!-- 检验报告展示 -->
+      <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">结构化检验报告</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="test-type-card">
+            <div class="bg-blue-50 p-3 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-file-medical-alt text-blue-500"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">生化检验报告</div>
+                <div class="text-xs text-gray-600">肝功能、肾功能、血脂等</div>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="https://via.placeholder.com/400x250/f0f9ff/1e40af?text=生化检验报告示例" class="w-full h-auto rounded mb-3" alt="生化检验报告示例">
+              <p class="text-xs text-gray-600 mb-3">
+                生化检验报告采用标准格式与参考范围，清晰呈现检测结果与正常值比对，包含异常值标记与变化趋势分析，便于临床医生快速判断。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 参考范围对比
+                </span>
+                <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 异常提示
+                </span>
+                <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 历史比对
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="test-type-card">
+            <div class="bg-green-50 p-3 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-bacteria text-green-500"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">微生物检验报告</div>
+                <div class="text-xs text-gray-600">病原菌培养与药敏试验</div>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="https://via.placeholder.com/400x250/f0fdf4/16a34a?text=微生物检验报告示例" class="w-full h-auto rounded mb-3" alt="微生物检验报告示例">
+              <p class="text-xs text-gray-600 mb-3">
+                微生物检验报告包含病原体鉴定、药物敏感性试验与临床建议，为临床合理用药提供依据，减少耐药性风险。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 精准鉴定
+                </span>
+                <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 药敏结果
+                </span>
+                <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 用药建议
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="test-type-card">
+            <div class="bg-purple-50 p-3 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-dna text-purple-500"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">分子诊断报告</div>
+                <div class="text-xs text-gray-600">基因检测与病毒载量</div>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="https://via.placeholder.com/400x250/faf5ff/7e22ce?text=分子诊断报告示例" class="w-full h-auto rounded mb-3" alt="分子诊断报告示例">
+              <p class="text-xs text-gray-600 mb-3">
+                分子诊断报告通过图形化方式展示基因检测结果，包含变异位点分析与临床意义解释，为精准治疗提供分子生物学依据。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-purple-50 text-purple-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 变异分析
+                </span>
+                <span class="inline-block bg-purple-50 text-purple-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 图形展示
+                </span>
+                <span class="inline-block bg-purple-50 text-purple-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 临床解读
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 智能检验系统 -->
+      <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">智能检验系统</h2>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mb-5">
+          <div class="flex items-start">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+              <i class="fas fa-robot text-blue-500"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800 mb-1">人工智能辅助检验</h3>
+              <p class="text-sm text-gray-600">
+                区域检验中心引入先进的人工智能辅助检验系统，通过自动化流水线与深度学习算法对检验结果进行智能分析与审核，提高检验效率与准确性。AI系统与专业人员配合，形成"人机协作"的检验模式。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center mr-3">
+                <i class="fas fa-microscope text-blue-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">智能显微镜</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              AI辅助血细胞形态学分析，智能识别异常细胞，减少人为误差，提高检测准确性。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">准确率</span>
+              <span class="text-xs font-semibold text-blue-600">97.8%</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-green-200 flex items-center justify-center mr-3">
+                <i class="fas fa-robot text-green-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">智能质控</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              自动化质量控制系统，实时监控检验设备、试剂与结果，智能预警异常，保障检验质量。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">异常预警时间</span>
+              <span class="text-xs font-semibold text-green-600">＜5分钟</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center mr-3">
+                <i class="fas fa-chart-line text-purple-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">结果智能审核</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              AI辅助报告审核系统，智能筛查异常结果，分析结果一致性与合理性，辅助临床判断。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">审核效率提升</span>
+              <span class="text-xs font-semibold text-purple-600">72%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 检验结果互认体系 -->
+      <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">检验结果互认体系</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
+          <div>
+            <h3 class="text-base font-semibold text-gray-800 mb-3">互认标准与规范</h3>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <ul class="space-y-3 text-sm text-gray-600">
+                <li class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span>统一检验标准与参考值范围，确保检验结果的可比性与一致性</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span>统一仪器校准与质量控制流程，保障检验质量的一致性</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span>定期开展室间质评活动，通过外部评价保证结果可靠性</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span>统一报告格式与异常值标准，便于医生理解与应用</span>
+                </li>
+                <li class="flex items-start">
+                  <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                    <i class="fas fa-check text-xs"></i>
+                  </div>
+                  <span>建立区域检验数据中心，实现检验数据互联互通</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-base font-semibold text-gray-800 mb-3">互认体系优势</h3>
+            <div class="space-y-3">
+              <div class="flex items-start bg-blue-50 p-3 rounded-lg">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-sync-alt text-blue-500"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800">避免重复检验</div>
+                  <p class="text-xs text-gray-600 mt-0.5">
+                    患者在区域内不同医疗机构就诊，无需重复进行同类检验，减轻患者负担
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start bg-green-50 p-3 rounded-lg">
+                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-chart-line text-green-500"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800">提高医疗效率</div>
+                  <p class="text-xs text-gray-600 mt-0.5">
+                    医生可快速调阅患者既往检验结果，进行病情变化分析，提高诊疗效率
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start bg-purple-50 p-3 rounded-lg">
+                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-user-shield text-purple-500"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800">提升患者体验</div>
+                  <p class="text-xs text-gray-600 mt-0.5">
+                    患者在区域内任何医疗机构均可查询检验结果，避免携带纸质报告
+                  </p>
+                </div>
+              </div>
+              
+              <div class="flex items-start bg-amber-50 p-3 rounded-lg">
+                <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-database text-amber-500"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-medium text-gray-800">促进数据应用</div>
+                  <p class="text-xs text-gray-600 mt-0.5">
+                    统一数据标准便于大数据分析与研究，促进医疗质量提升与科研创新
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 检验中心服务入口 -->
+      <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-sm p-8 text-center text-white mb-6">
+        <h2 class="text-xl font-bold mb-3">接入区域检验中心服务</h2>
+        <p class="text-sm opacity-80 mb-6">
+          为医疗机构提供高质量、标准化的检验服务支持，实现资源共享与结果互认
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+            <div class="text-2xl font-bold mb-1">3+</div>
+            <div class="text-sm opacity-80">区域检验中心</div>
+          </div>
+          
+          <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+            <div class="text-2xl font-bold mb-1">60+</div>
+            <div class="text-sm opacity-80">合作医疗机构</div>
+          </div>
+          
+          <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+            <div class="text-2xl font-bold mb-1">98%</div>
+            <div class="text-sm opacity-80">检验结果互认率</div>
+          </div>
+        </div>
+        
+        <button class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold text-sm hover:bg-blue-50 transition-colors">
+          了解接入流程
+        </button>
+      </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <div class="text-center text-gray-500 text-xs py-6">
+      © 2025 医疗健康综合服务系统 - 区域检验中心. 保留所有权利.
+    </div>
+  </div>
+</body>
+</html> 

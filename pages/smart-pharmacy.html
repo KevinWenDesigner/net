@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智慧药房体系 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .process-step {
+      position: relative;
+    }
+    
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: -15px;
+      width: 30px;
+      height: 2px;
+      background-color: #e5e7eb;
+    }
+    
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card {
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #f3f4f6;
+    }
+    
+    .stat-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+    }
+    
+    .pharmacy-layout {
+      position: relative;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 25px;
+      margin-top: 40px;
+    }
+    
+    .pharmacy-layout::before {
+      content: '智慧药房平面布局';
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      padding: 0 10px;
+      background-color: white;
+      font-weight: 600;
+      color: #4b5563;
+    }
+    
+    .layout-area {
+      position: relative;
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+        <i class="fas fa-capsules text-blue-500 text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">智慧药房体系</h1>
+        <p class="text-gray-500">线下协同服务网络的智能药品管理系统</p>
+      </div>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full lg:w-2/3">
+        <!-- 智慧药房概述 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">智慧药房概述</h2>
+          
+          <div class="bg-blue-50 rounded-lg p-4 mb-5 border-l-4 border-blue-500">
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-lightbulb text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-1">什么是智慧药房？</h3>
+                <p class="text-sm text-gray-600">
+                  智慧药房是集药品管理、智能配药、远程药学服务、数据分析于一体的现代化药房系统，通过数字化、智能化技术，实现药品全生命周期的精细化管理，提高药品供应效率，降低医疗成本，改善患者用药体验。
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <div class="bg-gray-50 p-4 rounded-lg text-center">
+              <div class="inline-block w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+                <i class="fas fa-shield-alt text-green-500"></i>
+              </div>
+              <h3 class="font-semibold text-gray-800 mb-1">安全用药</h3>
+              <p class="text-xs text-gray-600">
+                多重审核机制，防止不合理用药和药物相互作用
+              </p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg text-center">
+              <div class="inline-block w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                <i class="fas fa-tachometer-alt text-blue-500"></i>
+              </div>
+              <h3 class="font-semibold text-gray-800 mb-1">高效配药</h3>
+              <p class="text-xs text-gray-600">
+                智能配药系统大幅提高配药速度和准确率
+              </p>
+            </div>
+            
+            <div class="bg-gray-50 p-4 rounded-lg text-center">
+              <div class="inline-block w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3">
+                <i class="fas fa-database text-purple-500"></i>
+              </div>
+              <h3 class="font-semibold text-gray-800 mb-1">数据驱动</h3>
+              <p class="text-xs text-gray-600">
+                药品使用数据分析，支持精准采购与库存管理
+              </p>
+            </div>
+          </div>
+          
+          <!-- 智能配药系统 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-3">智能配药系统</h3>
+            <div class="flex overflow-x-auto pb-4 space-x-4">
+              <div class="flex-shrink-0 w-32 process-step">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2 mx-auto">
+                  <span class="text-blue-600 font-semibold">01</span>
+                </div>
+                <p class="text-xs text-center text-gray-600">
+                  处方传输
+                </p>
+              </div>
+              
+              <div class="flex-shrink-0 w-32 process-step">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2 mx-auto">
+                  <span class="text-blue-600 font-semibold">02</span>
+                </div>
+                <p class="text-xs text-center text-gray-600">
+                  药师审核
+                </p>
+              </div>
+              
+              <div class="flex-shrink-0 w-32 process-step">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2 mx-auto">
+                  <span class="text-blue-600 font-semibold">03</span>
+                </div>
+                <p class="text-xs text-center text-gray-600">
+                  系统自动配药
+                </p>
+              </div>
+              
+              <div class="flex-shrink-0 w-32 process-step">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2 mx-auto">
+                  <span class="text-blue-600 font-semibold">04</span>
+                </div>
+                <p class="text-xs text-center text-gray-600">
+                  质量复核
+                </p>
+              </div>
+              
+              <div class="flex-shrink-0 w-32 process-step">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2 mx-auto">
+                  <span class="text-blue-600 font-semibold">05</span>
+                </div>
+                <p class="text-xs text-center text-gray-600">
+                  取药通知
+                </p>
+              </div>
+              
+              <div class="flex-shrink-0 w-32">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-2 mx-auto">
+                  <i class="fas fa-check text-green-600"></i>
+                </div>
+                <p class="text-xs text-center text-gray-600">
+                  患者取药
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex justify-end">
+              <div class="flex items-center text-sm text-gray-500">
+                <div class="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center mr-2">
+                  <i class="fas fa-info text-green-500 text-xs"></i>
+                </div>
+                平均配药时间 ≤ 5分钟
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 药房布局与智能设备 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">药房布局与智能设备</h2>
+          
+          <div class="pharmacy-layout">
+            <div class="grid grid-cols-12 gap-3 h-60">
+              <!-- 取药区 -->
+              <div class="col-span-4 layout-area bg-blue-50 flex flex-col justify-center">
+                <i class="fas fa-prescription-bottle-alt text-blue-500 mb-2"></i>
+                取药窗口
+                <div class="text-xs text-gray-500 mt-1">自助取药柜 + 人工服务</div>
+              </div>
+              
+              <!-- 咨询区 -->
+              <div class="col-span-3 layout-area bg-green-50 flex flex-col justify-center">
+                <i class="fas fa-comments text-green-500 mb-2"></i>
+                药师咨询区
+                <div class="text-xs text-gray-500 mt-1">用药指导 + 健康咨询</div>
+              </div>
+              
+              <!-- 候药区 -->
+              <div class="col-span-5 layout-area bg-yellow-50 flex flex-col justify-center">
+                <i class="fas fa-chair text-yellow-600 mb-2"></i>
+                智能候药区
+                <div class="text-xs text-gray-500 mt-1">电子显示屏 + 休息座椅</div>
+              </div>
+              
+              <!-- 自动配药区 -->
+              <div class="col-span-6 layout-area bg-purple-50 flex flex-col justify-center">
+                <i class="fas fa-robot text-purple-500 mb-2"></i>
+                自动配药系统
+                <div class="text-xs text-gray-500 mt-1">多轨道高速配药机器人</div>
+              </div>
+              
+              <!-- 药品库存区 -->
+              <div class="col-span-4 layout-area bg-indigo-50 flex flex-col justify-center">
+                <i class="fas fa-cubes text-indigo-500 mb-2"></i>
+                智能库存区
+                <div class="text-xs text-gray-500 mt-1">温湿度监控 + 自动盘点</div>
+              </div>
+              
+              <!-- 管理区 -->
+              <div class="col-span-2 layout-area bg-red-50 flex flex-col justify-center">
+                <i class="fas fa-desktop text-red-500 mb-2"></i>
+                管理中心
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+            <div class="border border-gray-200 rounded-lg p-3 feature-card">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-robot text-blue-500 text-sm"></i>
+                </div>
+                <div class="font-medium text-gray-800">全自动配药机器人</div>
+              </div>
+              <p class="text-xs text-gray-600">
+                配备多轨道配药机器人，可同时处理多个处方，单次配药效率提高300%，准确率达99.99%。
+              </p>
+            </div>
+            
+            <div class="border border-gray-200 rounded-lg p-3 feature-card">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-barcode text-green-500 text-sm"></i>
+                </div>
+                <div class="font-medium text-gray-800">智能药品追溯系统</div>
+              </div>
+              <p class="text-xs text-gray-600">
+                所有药品均配备唯一码标识，支持全链条追溯，从生产到患者手中，确保用药安全。
+              </p>
+            </div>
+            
+            <div class="border border-gray-200 rounded-lg p-3 feature-card">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-thermometer-half text-yellow-500 text-sm"></i>
+                </div>
+                <div class="font-medium text-gray-800">环境智能监控</div>
+              </div>
+              <p class="text-xs text-gray-600">
+                实时监控药品储存环境温湿度，特殊药品独立储存区域，确保药品质量。
+              </p>
+            </div>
+            
+            <div class="border border-gray-200 rounded-lg p-3 feature-card">
+              <div class="flex items-center mb-2">
+                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-tablet text-purple-500 text-sm"></i>
+                </div>
+                <div class="font-medium text-gray-800">智能发药终端</div>
+              </div>
+              <p class="text-xs text-gray-600">
+                自助取药柜与人工窗口相结合，扫码取药或刷脸取药，全天候提供服务。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 线上线下协同服务 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">线上线下协同服务</h2>
+          
+          <div class="mb-5">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fas fa-sync text-blue-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800">处方流转协同</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pl-12">
+              <div class="p-3 rounded-lg border border-gray-200">
+                <div class="text-sm font-medium text-gray-800 mb-2">电子处方一键流转</div>
+                <p class="text-xs text-gray-600">
+                  在线问诊开具的处方自动传输至就近智慧药房，实现无纸化处理
+                </p>
+              </div>
+              
+              <div class="p-3 rounded-lg border border-gray-200">
+                <div class="text-sm font-medium text-gray-800 mb-2">处方实时状态跟踪</div>
+                <p class="text-xs text-gray-600">
+                  患者可在App实时查看处方审核、配药、发药等各环节状态
+                </p>
+              </div>
+              
+              <div class="p-3 rounded-lg border border-gray-200">
+                <div class="text-sm font-medium text-gray-800 mb-2">多渠道取药选择</div>
+                <p class="text-xs text-gray-600">
+                  提供到店自取、快递配送、预约上门等多种取药方式
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-5">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                <i class="fas fa-user-md text-green-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800">药学服务融合</div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pl-12">
+              <div class="bg-green-50 p-4 rounded-lg">
+                <div class="text-sm font-semibold text-gray-800 mb-2">
+                  <i class="fas fa-video text-green-500 mr-2"></i> 远程药学咨询
+                </div>
+                <p class="text-xs text-gray-600">
+                  通过视频连线获取专业药师用药指导，解答用药疑问，帮助合理用药
+                </p>
+                <button class="mt-2 bg-white text-green-500 rounded-lg text-xs px-3 py-1 border border-green-200">
+                  立即咨询
+                </button>
+              </div>
+              
+              <div class="bg-green-50 p-4 rounded-lg">
+                <div class="text-sm font-semibold text-gray-800 mb-2">
+                  <i class="fas fa-clipboard-list text-green-500 mr-2"></i> 用药评估与监测
+                </div>
+                <p class="text-xs text-gray-600">
+                  针对慢病患者提供个性化用药评估，定期监测用药效果，优化用药方案
+                </p>
+                <button class="mt-2 bg-white text-green-500 rounded-lg text-xs px-3 py-1 border border-green-200">
+                  申请评估
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-5 mt-5">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                <i class="fas fa-mobile-alt text-purple-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800">智能药事服务</div>
+            </div>
+            
+            <div class="bg-purple-50 p-4 rounded-lg">
+              <div class="grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-calendar-alt text-purple-500"></i>
+                  </div>
+                  <div class="text-xs font-medium text-gray-800">用药提醒</div>
+                </div>
+                
+                <div>
+                  <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-pills text-purple-500"></i>
+                  </div>
+                  <div class="text-xs font-medium text-gray-800">复购预警</div>
+                </div>
+                
+                <div>
+                  <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-chart-line text-purple-500"></i>
+                  </div>
+                  <div class="text-xs font-medium text-gray-800">健康记录</div>
+                </div>
+              </div>
+              
+              <div class="text-center mt-3">
+                <button class="bg-purple-500 text-white rounded-lg text-xs px-4 py-2">
+                  <i class="fas fa-download mr-1"></i> 下载智慧药房APP
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-1/3">
+        <!-- 智慧药房成效 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">智慧药房成效</h3>
+          
+          <div class="grid grid-cols-2 gap-3 mb-5">
+            <div class="stat-card bg-white p-3">
+              <div class="text-3xl font-bold text-blue-500 mb-1">85%</div>
+              <div class="text-xs text-gray-600">配药时间缩短</div>
+            </div>
+            
+            <div class="stat-card bg-white p-3">
+              <div class="text-3xl font-bold text-green-500 mb-1">99.9%</div>
+              <div class="text-xs text-gray-600">配药准确率</div>
+            </div>
+            
+            <div class="stat-card bg-white p-3">
+              <div class="text-3xl font-bold text-purple-500 mb-1">65%</div>
+              <div class="text-xs text-gray-600">人力成本降低</div>
+            </div>
+            
+            <div class="stat-card bg-white p-3">
+              <div class="text-3xl font-bold text-yellow-500 mb-1">92%</div>
+              <div class="text-xs text-gray-600">用户满意度</div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <div class="text-sm font-semibold text-gray-800 mb-3">药品管理提升</div>
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <div class="w-full bg-gray-200 rounded-full h-3 mr-2">
+                  <div class="bg-blue-500 h-3 rounded-full" style="width: 95%"></div>
+                </div>
+                <span class="text-xs text-gray-600 whitespace-nowrap">库存准确率 95%</span>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-full bg-gray-200 rounded-full h-3 mr-2">
+                  <div class="bg-green-500 h-3 rounded-full" style="width: 75%"></div>
+                </div>
+                <span class="text-xs text-gray-600 whitespace-nowrap">药品周转率 +75%</span>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-full bg-gray-200 rounded-full h-3 mr-2">
+                  <div class="bg-purple-500 h-3 rounded-full" style="width: 80%"></div>
+                </div>
+                <span class="text-xs text-gray-600 whitespace-nowrap">无效库存降低 80%</span>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="w-full bg-gray-200 rounded-full h-3 mr-2">
+                  <div class="bg-yellow-500 h-3 rounded-full" style="width: 68%"></div>
+                </div>
+                <span class="text-xs text-gray-600 whitespace-nowrap">药品报损率 -68%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 药师在线服务 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">药师在线服务</h3>
+          
+          <div class="mb-4">
+            <div class="relative">
+              <img src="https://via.placeholder.com/400x220/f0f9ff/1e40af?text=药师在线服务" class="w-full h-40 object-cover rounded-lg" alt="药师在线服务">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg"></div>
+              <div class="absolute bottom-3 left-3 text-white">
+                <div class="font-semibold mb-1">专业药师团队</div>
+                <div class="text-xs">24小时在线药学服务</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-3">
+            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+              <div class="w-12 h-12 rounded-full bg-white overflow-hidden mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/48x48/e0e7ff/4338ca?text=药" alt="药师头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">王医师 <span class="text-xs text-blue-500 ml-1">主管药师</span></div>
+                <div class="text-xs text-gray-500">擅长：慢病用药管理、用药安全评估</div>
+                <div class="mt-1">
+                  <button class="text-xs bg-blue-500 text-white px-2 py-1 rounded">立即咨询</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+              <div class="w-12 h-12 rounded-full bg-white overflow-hidden mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/48x48/fef3c7/92400e?text=药" alt="药师头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">李医师 <span class="text-xs text-green-500 ml-1">中级药师</span></div>
+                <div class="text-xs text-gray-500">擅长：儿童用药指导、中西药相互作用</div>
+                <div class="mt-1">
+                  <button class="text-xs bg-blue-500 text-white px-2 py-1 rounded">立即咨询</button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+              <div class="w-12 h-12 rounded-full bg-white overflow-hidden mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/48x48/dcfce7/166534?text=药" alt="药师头像" class="w-full h-full object-cover">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">张医师 <span class="text-xs text-purple-500 ml-1">高级药师</span></div>
+                <div class="text-xs text-gray-500">擅长：肿瘤用药、老年人用药安全</div>
+                <div class="mt-1">
+                  <button class="text-xs bg-blue-500 text-white px-2 py-1 rounded">立即咨询</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <button class="text-blue-500 text-sm hover:underline">
+              查看全部药师 <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 常见问题 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <h3 class="text-lg font-bold text-gray-800 mb-4">常见问题</h3>
+          
+          <div class="space-y-4">
+            <div class="border-b border-gray-100 pb-3">
+              <button class="flex justify-between items-center w-full text-left">
+                <div class="text-sm font-medium text-gray-800">智慧药房与传统药房有什么区别？</div>
+                <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+              </button>
+              <div class="mt-2 text-xs text-gray-600">
+                智慧药房采用数字化管理、自动化配药等技术，比传统药房更高效、更准确，可提供全天候服务，支持线上线下协同，并能提供个性化的药学服务。
+              </div>
+            </div>
+            
+            <div class="border-b border-gray-100 pb-3">
+              <button class="flex justify-between items-center w-full text-left">
+                <div class="text-sm font-medium text-gray-800">如何在线提交处方并取药？</div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+              </button>
+            </div>
+            
+            <div class="border-b border-gray-100 pb-3">
+              <button class="flex justify-between items-center w-full text-left">
+                <div class="text-sm font-medium text-gray-800">智慧药房是否支持医保支付？</div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+              </button>
+            </div>
+            
+            <div class="border-b border-gray-100 pb-3">
+              <button class="flex justify-between items-center w-full text-left">
+                <div class="text-sm font-medium text-gray-800">配药后多长时间可以取药？</div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+              </button>
+            </div>
+            
+            <div>
+              <button class="flex justify-between items-center w-full text-left">
+                <div class="text-sm font-medium text-gray-800">如何申请药师远程咨询服务？</div>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 智慧药房数据分析 -->
+    <div class="bg-white rounded-xl shadow-sm p-5 mt-6">
+      <div class="flex justify-between items-center mb-5">
+        <h2 class="text-lg font-bold text-gray-800">智慧药房数据分析</h2>
+        <div class="flex space-x-2">
+          <button class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full">日报</button>
+          <button class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">周报</button>
+          <button class="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">月报</button>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <div class="text-xs text-gray-500">今日配药量</div>
+            <div class="text-green-500 text-xs">+12.5%</div>
+          </div>
+          <div class="text-xl font-bold text-gray-800">428</div>
+          <div class="text-xs text-gray-500 mt-1">单位：张</div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <div class="text-xs text-gray-500">平均等待时间</div>
+            <div class="text-green-500 text-xs">-8.3%</div>
+          </div>
+          <div class="text-xl font-bold text-gray-800">4.2</div>
+          <div class="text-xs text-gray-500 mt-1">单位：分钟</div>
+        </div>
+        
+        <div class="bg-yellow-50 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <div class="text-xs text-gray-500">药品销售额</div>
+            <div class="text-green-500 text-xs">+15.7%</div>
+          </div>
+          <div class="text-xl font-bold text-gray-800">68,429</div>
+          <div class="text-xs text-gray-500 mt-1">单位：元</div>
+        </div>
+        
+        <div class="bg-purple-50 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <div class="text-xs text-gray-500">在线咨询次数</div>
+            <div class="text-green-500 text-xs">+23.1%</div>
+          </div>
+          <div class="text-xl font-bold text-gray-800">156</div>
+          <div class="text-xs text-gray-500 mt-1">单位：次</div>
+        </div>
+      </div>
+      
+      <div class="text-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+          查看完整数据报表
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>区域检查中心 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+    
+    .feature-card {
+      transition: all 0.3s ease;
+      border: 1px solid #f3f4f6;
+      overflow: hidden;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-color: #dbeafe;
+    }
+    
+    .stat-bar {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 4px;
+    }
+    
+    .equipment-box {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .equipment-box:hover {
+      border-color: #3b82f6;
+      background-color: #f0f9ff;
+    }
+    
+    .process-step {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .process-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10px;
+      height: 100%;
+      width: 2px;
+      background-color: #e5e7eb;
+    }
+    
+    .process-step::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #3b82f6;
+      z-index: 1;
+    }
+    
+    .process-step:last-child::before {
+      height: 10px;
+    }
+    
+    .report-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .report-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <!-- 页面标题 -->
+    <div class="flex items-center mb-6">
+      <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+        <i class="fas fa-microscope text-blue-500 text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">区域检查中心</h1>
+        <p class="text-gray-500">集中式医学影像和检查服务平台</p>
+      </div>
+    </div>
+    
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full lg:w-2/3">
+        <!-- 区域检查中心概述 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">区域检查中心概述</h2>
+          
+          <div class="bg-blue-50 rounded-lg p-4 mb-5 border-l-4 border-blue-500">
+            <div class="flex items-start">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-info-circle text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="font-semibold text-gray-800 mb-1">什么是区域检查中心？</h3>
+                <p class="text-sm text-gray-600">
+                  区域检查中心是整合区域内的医学影像、超声、内镜等检查资源，构建的集约化、标准化、专业化的医学检查服务平台。通过资源共享与集中管理，实现设备利用率最大化、检查质量标准化、专业人才集中化，为区域内各级医疗机构及患者提供高质量的检查服务。
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                <i class="fas fa-network-wired text-blue-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">资源整合</div>
+              <p class="text-xs text-gray-600 mt-1">
+                集中优质设备与专家资源
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                <i class="fas fa-certificate text-green-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">标准规范</div>
+              <p class="text-xs text-gray-600 mt-1">
+                统一检查流程与质量标准
+              </p>
+            </div>
+            
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <div class="inline-block w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                <i class="fas fa-share-alt text-purple-500"></i>
+              </div>
+              <div class="text-sm font-medium text-gray-800">共享协作</div>
+              <p class="text-xs text-gray-600 mt-1">
+                检查结果互联互通与共享
+              </p>
+            </div>
+          </div>
+          
+          <!-- 区域检查中心布局 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-3">区域检查中心布局</h3>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2">
+                  <img src="https://via.placeholder.com/500x300/f0f9ff/1e40af?text=区域检查中心布局图" class="w-full h-auto rounded-lg" alt="区域检查中心布局图">
+                </div>
+                <div class="md:w-1/2 md:pl-5 pt-4 md:pt-0">
+                  <ul class="space-y-3 text-sm text-gray-600">
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-blue-100 text-blue-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">1</span>
+                      </div>
+                      <span>中央影像诊断中心区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-green-100 text-green-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">2</span>
+                      </div>
+                      <span>超声检查区（常规、心脏、血管）</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-yellow-100 text-yellow-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">3</span>
+                      </div>
+                      <span>内镜检查区（胃肠镜、气管镜等）</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-purple-100 text-purple-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">4</span>
+                      </div>
+                      <span>心电与神经电生理检查区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-red-100 text-red-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">5</span>
+                      </div>
+                      <span>功能检查区（肺功能、骨密度等）</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-indigo-100 text-indigo-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">6</span>
+                      </div>
+                      <span>患者服务与休息区</span>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="w-5 h-5 rounded bg-pink-100 text-pink-500 flex items-center justify-center mr-2 flex-shrink-0">
+                        <span class="text-xs font-medium">7</span>
+                      </div>
+                      <span>医技人员办公与会诊区</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 服务内容与流程 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">服务内容与流程</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+            <div class="feature-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-x-ray text-blue-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">影像检查服务</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                  <span>X光检查（DR、CR）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                  <span>CT检查（64排、128排、256排CT）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                  <span>MRI检查（1.5T、3.0T核磁共振）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                  <span>PET-CT检查</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                  <span>DSA血管造影</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="feature-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-wave-square text-green-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">超声检查服务</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-1"></i>
+                  <span>腹部超声（肝、胆、脾、肾等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-1"></i>
+                  <span>心脏超声（常规、多普勒、应变等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-1"></i>
+                  <span>血管超声（颈动脉、下肢静脉等）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-1"></i>
+                  <span>妇科、产科超声</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-green-500 text-xs mr-2 mt-1"></i>
+                  <span>浅表器官超声（甲状腺、乳腺等）</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="feature-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-diagnoses text-yellow-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">内镜检查服务</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-1"></i>
+                  <span>胃镜检查（含无痛胃镜）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-1"></i>
+                  <span>结肠镜检查（含无痛肠镜）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-1"></i>
+                  <span>支气管镜检查</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-1"></i>
+                  <span>鼻咽喉镜检查</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-yellow-500 text-xs mr-2 mt-1"></i>
+                  <span>膀胱镜检查</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="feature-card p-4 rounded-lg">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                  <i class="fas fa-heartbeat text-purple-500"></i>
+                </div>
+                <div class="font-semibold text-gray-800">功能检查服务</div>
+              </div>
+              
+              <ul class="text-xs text-gray-600 space-y-2 pl-12">
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-1"></i>
+                  <span>心电图检查（常规、动态、运动负荷）</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-1"></i>
+                  <span>肺功能检查</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-1"></i>
+                  <span>脑电图检查</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-1"></i>
+                  <span>神经电生理检查</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-circle text-purple-500 text-xs mr-2 mt-1"></i>
+                  <span>骨密度检查</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- 检查流程 -->
+          <div class="border-t border-gray-100 pt-5">
+            <h3 class="font-semibold text-gray-800 mb-4">标准化检查流程</h3>
+            
+            <div class="space-y-4 pl-4">
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">检查申请与预约</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  医生通过平台开具电子检查申请单，患者可在线预约检查时间。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">电子申请单</span>
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">智能分诊</span>
+                  <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">线上预约</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">患者签到与准备</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  患者到检查中心签到，工作人员核实身份信息与检查项目，进行必要的检查前准备。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">电子签到</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">检查前说明</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">准备工作</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">检查执行</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  由专业技师执行标准化检查流程，确保检查质量与检查体验。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">标准化操作</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">舒适体验</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">隐私保护</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">图像传输与归档</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  检查完成后，图像通过PACS系统自动传输、存储与归档。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">实时传输</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">云端存储</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">安全加密</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">专家诊断与报告</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  高级别专家进行图像诊断并出具规范报告，复杂病例进行多学科会诊。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">专家诊断</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">AI辅助</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">双医师审核</span>
+                </div>
+              </div>
+              
+              <div class="process-step">
+                <div class="font-medium text-gray-800 mb-1">报告发送与查阅</div>
+                <p class="text-xs text-gray-600 mb-2">
+                  检查报告通过平台自动推送给申请医生与患者，支持在线查阅与下载。
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">实时推送</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">在线查阅</span>
+                  <span class="inline-block bg-gray-100 text-gray-600 rounded px-2 py-0.5 text-xs">报告解读</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full lg:w-1/3">
+        <!-- 检查中心运营数据 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">检查中心运营数据</h2>
+          
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-sm font-medium text-gray-700">检查完成率</span>
+                <span class="text-sm font-semibold text-green-600">98.6%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-green-500" style="width: 98.6%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-sm font-medium text-gray-700">报告及时率</span>
+                <span class="text-sm font-semibold text-blue-600">96.2%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-blue-500" style="width: 96.2%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-sm font-medium text-gray-700">设备利用率</span>
+                <span class="text-sm font-semibold text-purple-600">87.5%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-purple-500" style="width: 87.5%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-sm font-medium text-gray-700">患者满意度</span>
+                <span class="text-sm font-semibold text-indigo-600">95.4%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-indigo-500" style="width: 95.4%"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-sm font-medium text-gray-700">检查量同比增长</span>
+                <span class="text-sm font-semibold text-amber-600">+32.8%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-amber-500" style="width: 72.8%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-5 pt-4 border-t border-gray-100">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="text-center p-3 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-blue-600 mb-1">23.5万</div>
+                <div class="text-xs text-gray-500">月检查量</div>
+              </div>
+              
+              <div class="text-center p-3 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-green-600 mb-1">13分钟</div>
+                <div class="text-xs text-gray-500">平均等待时间</div>
+              </div>
+              
+              <div class="text-center p-3 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-purple-600 mb-1">42家</div>
+                <div class="text-xs text-gray-500">合作医疗机构</div>
+              </div>
+              
+              <div class="text-center p-3 bg-gray-50 rounded-lg">
+                <div class="text-2xl font-bold text-amber-600 mb-1">95%</div>
+                <div class="text-xs text-gray-500">机构续约率</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 先进检查设备 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">先进检查设备</h2>
+          
+          <div class="space-y-3">
+            <div class="equipment-box p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-blue-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-brain text-blue-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">西门子3.0T超导磁共振</div>
+                  <div class="text-xs text-gray-500 mt-0.5">高清成像，多功能序列，智能降噪</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-box p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-green-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-lungs text-green-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">GE 256排CT</div>
+                  <div class="text-xs text-gray-500 mt-0.5">超低辐射，心脏成像，智能重建</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-box p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-purple-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-x-ray text-purple-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">飞利浦数字平板DR</div>
+                  <div class="text-xs text-gray-500 mt-0.5">全景成像，智能曝光，高清锐化</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-box p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-yellow-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-wave-square text-yellow-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">GE彩色多普勒超声</div>
+                  <div class="text-xs text-gray-500 mt-0.5">4D成像，弹性成像，精准测量</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="equipment-box p-3">
+              <div class="flex items-center">
+                <div class="w-14 h-14 bg-red-50 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                  <i class="fas fa-vial text-red-500 text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-800">奥林巴斯电子内镜系统</div>
+                  <div class="text-xs text-gray-500 mt-0.5">窄带成像，放大内镜，智能辅助诊断</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <a href="#" class="text-sm text-blue-500 font-medium hover:text-blue-600 hover:underline">
+              查看更多设备 <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 专家团队 -->
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">专业医技团队</h2>
+          
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=医师" class="w-full h-full rounded-full object-cover" alt="医师照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">王主任</div>
+                <div class="text-xs text-gray-600">放射科 | 主任医师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  专注于神经系统影像诊断，拥有20年诊断经验
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=医师" class="w-full h-full rounded-full object-cover" alt="医师照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">李主任</div>
+                <div class="text-xs text-gray-600">超声科 | 主任医师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  擅长心脏超声诊断，国内顶级超声专家
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=医师" class="w-full h-full rounded-full object-cover" alt="医师照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">张副主任</div>
+                <div class="text-xs text-gray-600">内镜中心 | 副主任医师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  消化内镜诊疗专家，擅长消化道早癌筛查
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 rounded-full bg-gray-200 mr-3 flex-shrink-0">
+                <img src="https://via.placeholder.com/100x100/f9fafb/64748b?text=医师" class="w-full h-full rounded-full object-cover" alt="医师照片">
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">陈医师</div>
+                <div class="text-xs text-gray-600">功能检查科 | 主治医师</div>
+                <div class="text-xs text-gray-500 mt-1">
+                  专注于心电图与神经电生理检查与诊断
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-center">
+            <a href="#" class="text-sm text-blue-500 font-medium hover:text-blue-600 hover:underline">
+              查看完整专家团队 <i class="fas fa-chevron-right text-xs ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部内容 -->
+    <div class="mb-6">
+      <!-- 检查报告展示 -->
+      <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">结构化检查报告展示</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="report-card">
+            <div class="bg-blue-50 p-3 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-file-medical-alt text-blue-500"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">放射检查报告</div>
+                <div class="text-xs text-gray-600">结构化 CT/MRI 报告</div>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="https://via.placeholder.com/400x250/f0f9ff/1e40af?text=放射检查报告示例" class="w-full h-auto rounded mb-3" alt="放射检查报告示例">
+              <p class="text-xs text-gray-600 mb-3">
+                结构化放射检查报告通过标准化模板与术语，清晰展示检查结果，包含关键影像与解剖结构标注，便于临床医生快速获取关键信息。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 标准化术语
+                </span>
+                <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 图像标注
+                </span>
+                <span class="inline-block bg-blue-50 text-blue-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 自动测量
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="report-card">
+            <div class="bg-green-50 p-3 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-heartbeat text-green-500"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">超声检查报告</div>
+                <div class="text-xs text-gray-600">心脏、腹部等超声报告</div>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="https://via.placeholder.com/400x250/f0fdf4/16a34a?text=超声检查报告示例" class="w-full h-auto rounded mb-3" alt="超声检查报告示例">
+              <p class="text-xs text-gray-600 mb-3">
+                超声检查报告包含丰富的动态图像与测量数据，通过结构化布局呈现正常值范围对比，辅助临床决策。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 动态图像
+                </span>
+                <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 精准测量
+                </span>
+                <span class="inline-block bg-green-50 text-green-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 趋势分析
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="report-card">
+            <div class="bg-yellow-50 p-3 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fas fa-microscope text-yellow-500"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">内镜检查报告</div>
+                <div class="text-xs text-gray-600">胃镜、肠镜等内镜报告</div>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="https://via.placeholder.com/400x250/fefce8/ca8a04?text=内镜检查报告示例" class="w-full h-auto rounded mb-3" alt="内镜检查报告示例">
+              <p class="text-xs text-gray-600 mb-3">
+                内镜检查报告通过高清图像与标准分类，清晰展示检查过程中的关键发现，便于临床医生判断病变程度与类型。
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-yellow-50 text-yellow-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 高清图像
+                </span>
+                <span class="inline-block bg-yellow-50 text-yellow-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 标准分类
+                </span>
+                <span class="inline-block bg-yellow-50 text-yellow-600 rounded px-2 py-0.5 text-xs">
+                  <i class="fas fa-check-circle mr-1"></i> 数字标记
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 智能辅助诊断技术 -->
+      <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">AI辅助诊断技术</h2>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 mb-5">
+          <div class="flex items-start">
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 flex-shrink-0">
+              <i class="fas fa-robot text-blue-500"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800 mb-1">人工智能辅助诊断</h3>
+              <p class="text-sm text-gray-600">
+                区域检查中心引入先进的人工智能辅助诊断系统，通过深度学习算法对医学影像进行自动分析，协助专家提高诊断效率与准确性。AI系统与专家配合，形成"人机协作"的诊断模式，在提高诊断效率的同时确保诊断质量。
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-blue-200 flex items-center justify-center mr-3">
+                <i class="fas fa-brain text-blue-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">脑部影像AI</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              智能识别脑卒中、脑肿瘤、神经退行性疾病等病变，提供精准定位与测量。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">检出率提升</span>
+              <span class="text-xs font-semibold text-blue-600">+32%</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-green-200 flex items-center justify-center mr-3">
+                <i class="fas fa-lungs text-green-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">胸部影像AI</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              智能筛查肺结节、肺炎、肺气肿等病变，并提供体积、密度等定量分析。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">诊断时间缩短</span>
+              <span class="text-xs font-semibold text-green-600">65%</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center mr-3">
+                <i class="fas fa-heartbeat text-purple-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">心脏影像AI</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              智能分析心脏结构与功能，评估冠状动脉狭窄，心肌灌注与活力。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">准确率</span>
+              <span class="text-xs font-semibold text-purple-600">92.7%</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-red-200 flex items-center justify-center mr-3">
+                <i class="fas fa-bone text-red-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">骨骼影像AI</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              智能识别骨折、骨质疏松、关节退变等骨骼病变，提供结构化评估。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">微小骨折检出率</span>
+              <span class="text-xs font-semibold text-red-600">+28%</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-amber-200 flex items-center justify-center mr-3">
+                <i class="fas fa-vial text-amber-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">内镜影像AI</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              智能识别消化道早期病变，如息肉、早期癌变等，并提供实时辅助诊断。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">早期病变检出率</span>
+              <span class="text-xs font-semibold text-amber-600">+45%</span>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg p-4">
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 rounded-full bg-indigo-200 flex items-center justify-center mr-3">
+                <i class="fas fa-wave-square text-indigo-600"></i>
+              </div>
+              <div class="font-semibold text-gray-800">超声影像AI</div>
+            </div>
+            <p class="text-xs text-gray-600 mb-3">
+              智能辅助心脏、腹部等超声检查，提供标准化测量与结构识别。
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-gray-600">测量标准化率</span>
+              <span class="text-xs font-semibold text-indigo-600">96.3%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 区域检查中心预约入口 -->
+      <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-sm p-8 text-center text-white mb-6">
+        <h2 class="text-xl font-bold mb-3">立即预约区域检查中心服务</h2>
+        <p class="text-sm opacity-80 mb-6">
+          提供全方位、高品质的医学检查服务，专业团队为您的健康保驾护航
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+            <div class="text-2xl font-bold mb-1">3+</div>
+            <div class="text-sm opacity-80">区域检查中心</div>
+          </div>
+          
+          <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+            <div class="text-2xl font-bold mb-1">50+</div>
+            <div class="text-sm opacity-80">专业检查项目</div>
+          </div>
+          
+          <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+            <div class="text-2xl font-bold mb-1">30+</div>
+            <div class="text-sm opacity-80">医技专家团队</div>
+          </div>
+        </div>
+        
+        <button class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold text-sm hover:bg-blue-50 transition-colors">
+          立即预约检查
+        </button>
+      </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <div class="text-center text-gray-500 text-xs py-6">
+      © 2025 医疗健康综合服务系统 - 区域检查中心. 保留所有权利.
+    </div>
+  </div>
+</body>
+</html> 
