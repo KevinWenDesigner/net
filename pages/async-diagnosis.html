@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>异步诊疗流程 - 医疗健康综合服务系统</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      max-width: 1920px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    .timeline-container {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #E5E7EB;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #3B82F6;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 0 2px #3B82F6;
+    }
+
+    .timeline-item:last-child .timeline-dot {
+      background: #10B981;
+    }
+
+    .timeline-content {
+      background: #F9FAFB;
+      border-radius: 8px;
+      padding: 16px;
+      border-left: 4px solid #3B82F6;
+    }
+
+    .timeline-item:last-child .timeline-content {
+      border-left-color: #10B981;
+    }
+
+    .async-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .async-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col md:flex-row gap-6">
+      <!-- 左侧内容 -->
+      <div class="w-full md:w-1/3">
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <div class="flex items-center mb-4">
+            <div class="text-lg font-bold text-gray-800">异步问诊服务</div>
+            <span class="ml-2 px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">先问后答</span>
+          </div>
+          <p class="text-gray-600 text-sm mb-4">适合非紧急医疗咨询的诊疗方式，患者提交问题后，医生在合适时间进行回复，无需实时在线等待。</p>
+          
+          <div class="mb-4">
+            <div class="font-semibold text-gray-700 mb-2">适用人群</div>
+            <ul class="text-sm text-gray-600">
+              <li class="flex items-center mb-2">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                慢性疾病管理患者
+              </li>
+              <li class="flex items-center mb-2">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                工作忙碌无固定时间者
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                需专家二次诊疗意见者
+              </li>
+            </ul>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <div class="font-semibold text-gray-700 mb-2">服务特点</div>
+            <div class="flex flex-wrap">
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-clock text-green-500 mr-2"></i>
+                <span class="text-sm text-gray-600">灵活时间</span>
+              </div>
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-user-md text-green-500 mr-2"></i>
+                <span class="text-sm text-gray-600">专家诊疗</span>
+              </div>
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-file-medical-alt text-green-500 mr-2"></i>
+                <span class="text-sm text-gray-600">详细回复</span>
+              </div>
+              <div class="w-1/2 flex items-center mb-3">
+                <i class="fas fa-dollar-sign text-green-500 mr-2"></i>
+                <span class="text-sm text-gray-600">经济实惠</span>
+              </div>
+              <div class="w-1/2 flex items-center">
+                <i class="fas fa-history text-green-500 mr-2"></i>
+                <span class="text-sm text-gray-600">记录留存</span>
+              </div>
+              <div class="w-1/2 flex items-center">
+                <i class="fas fa-comments text-green-500 mr-2"></i>
+                <span class="text-sm text-gray-600">追问服务</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 问诊统计 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <div class="font-bold text-gray-800 mb-4">异步问诊统计</div>
+          
+          <div class="grid grid-cols-2 gap-4 mb-5">
+            <div class="bg-blue-50 rounded-lg p-3 text-center">
+              <div class="text-xl font-bold text-blue-600">98%</div>
+              <div class="text-xs text-gray-600 mt-1">问题解决率</div>
+            </div>
+            <div class="bg-green-50 rounded-lg p-3 text-center">
+              <div class="text-xl font-bold text-green-600">6小时</div>
+              <div class="text-xs text-gray-600 mt-1">平均响应时间</div>
+            </div>
+            <div class="bg-purple-50 rounded-lg p-3 text-center">
+              <div class="text-xl font-bold text-purple-600">4.9</div>
+              <div class="text-xs text-gray-600 mt-1">用户满意度</div>
+            </div>
+            <div class="bg-yellow-50 rounded-lg p-3 text-center">
+              <div class="text-xl font-bold text-yellow-600">3.2次</div>
+              <div class="text-xs text-gray-600 mt-1">平均交流次数</div>
+            </div>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4">
+            <div class="font-semibold text-gray-700 mb-3">热门科室</div>
+            <div class="space-y-2">
+              <div class="flex items-center">
+                <div class="w-28 text-sm text-gray-600">内科</div>
+                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 85%;"></div>
+                </div>
+                <div class="w-10 text-xs text-gray-500 text-right">85%</div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-28 text-sm text-gray-600">儿科</div>
+                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 72%;"></div>
+                </div>
+                <div class="w-10 text-xs text-gray-500 text-right">72%</div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-28 text-sm text-gray-600">妇产科</div>
+                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 68%;"></div>
+                </div>
+                <div class="w-10 text-xs text-gray-500 text-right">68%</div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-28 text-sm text-gray-600">皮肤科</div>
+                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 59%;"></div>
+                </div>
+                <div class="w-10 text-xs text-gray-500 text-right">59%</div>
+              </div>
+              <div class="flex items-center">
+                <div class="w-28 text-sm text-gray-600">心理咨询</div>
+                <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 45%;"></div>
+                </div>
+                <div class="w-10 text-xs text-gray-500 text-right">45%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧内容 -->
+      <div class="w-full md:w-2/3">
+        <div class="bg-white rounded-xl shadow-sm p-5 mb-6">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">异步诊疗流程展示</h2>
+          
+          <!-- 异步诊疗流程时间线 -->
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="font-semibold text-gray-800 mb-2">第一步：提交问诊请求</h3>
+                <p class="text-gray-600 text-sm mb-3">患者填写问诊表单，描述症状、上传相关检查资料，选择专科或指定医生，支付问诊费用。</p>
+                <div class="bg-gray-100 rounded-lg p-3">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="font-semibold text-sm text-gray-700">高血压随访咨询</div>
+                    <span class="status-badge bg-blue-100 text-blue-700">已提交</span>
+                  </div>
+                  <div class="text-xs text-gray-500 mb-2">提交时间：2025-04-01 09:32</div>
+                  <div class="text-xs text-gray-700">
+                    我是一名高血压患者，目前服用缬沙坦片控制血压。最近一周测量血压波动较大，早晨偏高晚上正常，有时头晕，想咨询是否需要调整用药方案。已上传近期血压监测记录。
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="font-semibold text-gray-800 mb-2">第二步：医生接诊</h3>
+                <p class="text-gray-600 text-sm mb-3">系统分配给合适的医生，医生接收问诊请求，查看患者提交的资料，研究病情。</p>
+                <div class="bg-gray-100 rounded-lg p-3">
+                  <div class="flex items-center mb-2">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="医生头像" class="w-10 h-10 rounded-full mr-3">
+                    <div>
+                      <div class="font-semibold text-sm text-gray-700">王主任</div>
+                      <div class="text-xs text-gray-500">心内科 | 副主任医师</div>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-500 mb-2">接诊时间：2025-04-01 11:45</div>
+                  <div class="text-xs flex items-center text-green-600">
+                    <i class="fas fa-spinner fa-spin mr-1"></i> 正在研究病情，预计3小时内回复
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="font-semibold text-gray-800 mb-2">第三步：医生回复</h3>
+                <p class="text-gray-600 text-sm mb-3">医生在24小时内给出专业诊疗建议，可能包括调整用药方案、生活方式建议或后续复查安排。</p>
+                <div class="bg-blue-50 rounded-lg p-3">
+                  <div class="text-xs text-gray-500 mb-2">回复时间：2025-04-01 14:20</div>
+                  <div class="text-xs text-gray-700 mb-3">
+                    <p class="mb-2">根据您提供的血压监测记录，早晚血压差异明显，早晨血压偏高可能与晨峰现象有关。建议如下：</p>
+                    <ol class="list-decimal pl-4">
+                      <li class="mb-1">调整服药时间：缬沙坦片晚上9点服用，以覆盖早晨血压升高时段</li>
+                      <li class="mb-1">增加低盐低脂饮食，控制每日盐摄入量在5g以下</li>
+                      <li class="mb-1">保持规律作息，避免熬夜和情绪波动</li>
+                      <li>继续监测血压，每天固定时间测量并记录</li>
+                    </ol>
+                  </div>
+                  <div class="text-xs text-gray-700">
+                    <p>如调整用药后血压仍不稳定，建议来院复查，考虑是否需要联合用药方案。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="font-semibold text-gray-800 mb-2">第四步：患者追问</h3>
+                <p class="text-gray-600 text-sm mb-3">患者可对医生的诊疗建议进行追问，深入了解用药方案、注意事项等详细信息。</p>
+                <div class="bg-gray-100 rounded-lg p-3">
+                  <div class="text-xs text-gray-500 mb-2">追问时间：2025-04-01 15:45</div>
+                  <div class="text-xs text-gray-700">
+                    医生您好，感谢您的建议。我想了解一下，缬沙坦晚上服用会不会影响睡眠？另外，我平时喜欢晨练，是否需要调整运动时间和强度？
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="font-semibold text-gray-800 mb-2">第五步：医生再次回复</h3>
+                <p class="text-gray-600 text-sm mb-3">医生针对患者的追问给予进一步解释和建议，确保患者充分理解治疗方案。</p>
+                <div class="bg-blue-50 rounded-lg p-3">
+                  <div class="text-xs text-gray-500 mb-2">再次回复时间：2025-04-01 17:10</div>
+                  <div class="text-xs text-gray-700">
+                    <p class="mb-2">关于您的问题：</p>
+                    <p class="mb-2">1. 缬沙坦晚上服用通常不会影响睡眠，它不属于利尿类降压药，所以不会增加夜间排尿。如有不适，可调整为晚餐后服用。</p>
+                    <p>2. 关于晨练：建议将晨练时间推迟到服早餐后1小时左右进行，避开清晨血压峰值期。强度控制在中等（心率不超过120次/分），时间控制在30-45分钟，运动前后测量血压，如收缩压超过160mmHg，建议当天不要运动。散步、太极等较为适合高血压患者。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="font-semibold text-gray-800 mb-2">第六步：问诊结束</h3>
+                <p class="text-gray-600 text-sm mb-3">患者确认问题已解决，问诊结束。系统保存完整问诊记录，患者可随时查阅。</p>
+                <div class="bg-green-50 rounded-lg p-3">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="font-semibold text-sm text-green-700">问诊已完成</div>
+                    <div class="text-xs text-gray-500">2025-04-02 09:15</div>
+                  </div>
+                  <div class="flex items-center mb-3">
+                    <div class="text-sm mr-2">服务评价：</div>
+                    <div class="flex text-yellow-400">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-700 mb-2">
+                    非常感谢王主任的详细解答，已按建议调整用药和晨练安排，近两天血压已趋于稳定。
+                  </div>
+                  <div class="flex justify-end">
+                    <button class="text-xs bg-green-600 text-white px-3 py-1 rounded-full">
+                      下载问诊记录
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 异步诊疗案例展示 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">异步诊疗常见场景</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="async-card border border-gray-100">
+              <div class="bg-blue-500 p-3 text-white">
+                <h3 class="font-semibold">慢性病管理</h3>
+              </div>
+              <div class="p-4">
+                <p class="text-sm text-gray-600 mb-3">
+                  适合高血压、糖尿病等慢性病患者定期咨询，调整用药方案，了解生活方式改善建议。
+                </p>
+                <div class="flex items-center text-sm text-blue-500">
+                  <i class="fas fa-calendar-check mr-2"></i>
+                  <span>定期随访提醒</span>
+                </div>
+              </div>
+            </div>
+            <div class="async-card border border-gray-100">
+              <div class="bg-green-500 p-3 text-white">
+                <h3 class="font-semibold">检查解读</h3>
+              </div>
+              <div class="p-4">
+                <p class="text-sm text-gray-600 mb-3">
+                  患者上传检查报告（血液、影像等），医生进行专业解读并给出健康建议。
+                </p>
+                <div class="flex items-center text-sm text-green-500">
+                  <i class="fas fa-file-medical-alt mr-2"></i>
+                  <span>报告专业解读</span>
+                </div>
+              </div>
+            </div>
+            <div class="async-card border border-gray-100">
+              <div class="bg-purple-500 p-3 text-white">
+                <h3 class="font-semibold">用药咨询</h3>
+              </div>
+              <div class="p-4">
+                <p class="text-sm text-gray-600 mb-3">
+                  了解药物作用、用法用量、注意事项、不良反应，以及药物相互作用等问题。
+                </p>
+                <div class="flex items-center text-sm text-purple-500">
+                  <i class="fas fa-pills mr-2"></i>
+                  <span>用药指导</span>
+                </div>
+              </div>
+            </div>
+            <div class="async-card border border-gray-100">
+              <div class="bg-orange-500 p-3 text-white">
+                <h3 class="font-semibold">专家二次诊疗意见</h3>
+              </div>
+              <div class="p-4">
+                <p class="text-sm text-gray-600 mb-3">
+                  获取知名专家对疑难复杂疾病的诊疗建议，为患者提供更多治疗选择。
+                </p>
+                <div class="flex items-center text-sm text-orange-500">
+                  <i class="fas fa-user-md mr-2"></i>
+                  <span>名医会诊</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 服务优势 -->
+          <div class="bg-gray-50 rounded-lg p-5 mb-6">
+            <h3 class="font-semibold text-gray-800 mb-3">异步诊疗服务优势</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="flex">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-hourglass-half text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">时间灵活</div>
+                  <div class="text-xs text-gray-600">患者医生双方均可在方便时间处理，无需实时在线</div>
+                </div>
+              </div>
+              <div class="flex">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-clipboard-list text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">回复详尽</div>
+                  <div class="text-xs text-gray-600">医生有充足时间思考，提供更全面专业的诊疗建议</div>
+                </div>
+              </div>
+              <div class="flex">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-search-plus text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">资料充分</div>
+                  <div class="text-xs text-gray-600">支持上传多种资料供医生全面分析，辅助精准诊断</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-blue-50 rounded-lg p-4 text-center">
+            <div class="font-semibold text-gray-800 mb-2">立即体验异步诊疗服务</div>
+            <div class="text-sm text-gray-600 mb-4">灵活便捷，让专业医疗服务随时为您准备</div>
+            <button class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200">
+              开始咨询 <i class="fas fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="bg-gray-800 text-white py-8 mt-8">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <p class="mb-2">© 2025 医疗健康综合服务系统 | 汉唐医疗集团</p>
+        <p class="text-gray-400 text-sm">提供专业、便捷、高效的医疗服务</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html>
