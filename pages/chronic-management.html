@@ -71,6 +71,62 @@
       font-size: 18px;
       color: #1F2937;
     }
+    
+    /* 用药日历样式 */
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      margin-top: 10px;
+    }
+    
+    .calendar-day {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      border-radius: 50%;
+      font-weight: 500;
+    }
+    
+    .has-pill {
+      background-color: #EFF6FF;
+      color: #2563EB;
+      position: relative;
+    }
+    
+    .has-pill::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      width: 4px;
+      height: 4px;
+      background-color: #2563EB;
+      border-radius: 50%;
+    }
+    
+    .calendar-day:not(.has-pill):not(.text-gray-300):not(.text-gray-400) {
+      color: #4B5563;
+    }
+    
+    .calendar-day.text-gray-300 {
+      opacity: 0.6;
+    }
+    
+    .calendar-day.today {
+      background-color: #3B82F6;
+      color: white;
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      border-color: #BFDBFE;
+      background-color: #F9FAFB;
+    }
   </style>
 </head>
 <body class="bg-gray-50">
@@ -218,7 +274,9 @@
             <div class="space-y-3">
               <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
                 <div class="flex items-center">
-                  <img src="https://via.placeholder.com/40x40/f0f9ff/1e40af?text=药" class="w-10 h-10 rounded-md mr-3" alt="药品图片">
+                  <div class="w-10 h-10 rounded-md mr-3 bg-blue-100 flex items-center justify-center text-blue-700">
+                    <i class="fas fa-pills text-xl"></i>
+                  </div>
                   <div>
                     <div class="font-medium text-gray-800">二甲双胍片</div>
                     <div class="text-xs text-gray-500">0.5g/片 | 每日2次，每次1片</div>
@@ -236,7 +294,9 @@
               
               <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
                 <div class="flex items-center">
-                  <img src="https://via.placeholder.com/40x40/effaf5/047857?text=药" class="w-10 h-10 rounded-md mr-3" alt="药品图片">
+                  <div class="w-10 h-10 rounded-md mr-3 bg-green-100 flex items-center justify-center text-green-700">
+                    <i class="fas fa-capsules text-xl"></i>
+                  </div>
                   <div>
                     <div class="font-medium text-gray-800">阿卡波糖片</div>
                     <div class="text-xs text-gray-500">50mg/片 | 每日3次，每次1片</div>
@@ -306,12 +366,44 @@
             <p class="text-sm text-gray-600 mb-3">
               除了处方药，平台还提供健康食品、营养品、保健品等周边商品，满足您的全方位健康需求。
             </p>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 mb-3">
               <span class="inline-block bg-purple-50 text-purple-600 rounded-full px-2 py-1 text-xs">处方药</span>
               <span class="inline-block bg-purple-50 text-purple-600 rounded-full px-2 py-1 text-xs">保健品</span>
               <span class="inline-block bg-purple-50 text-purple-600 rounded-full px-2 py-1 text-xs">医疗器械</span>
               <span class="inline-block bg-purple-50 text-purple-600 rounded-full px-2 py-1 text-xs">健康食品</span>
               <span class="inline-block bg-purple-50 text-purple-600 rounded-full px-2 py-1 text-xs">营养品</span>
+            </div>
+            <div class="grid grid-cols-5 gap-2">
+              <div class="bg-gray-50 p-2 rounded-md text-center">
+                <div class="w-8 h-8 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-1">
+                  <i class="fas fa-pills text-blue-500 text-xs"></i>
+                </div>
+                <div class="text-xs text-gray-500">常用药</div>
+              </div>
+              <div class="bg-gray-50 p-2 rounded-md text-center">
+                <div class="w-8 h-8 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-1">
+                  <i class="fas fa-capsules text-green-500 text-xs"></i>
+                </div>
+                <div class="text-xs text-gray-500">处方药</div>
+              </div>
+              <div class="bg-gray-50 p-2 rounded-md text-center">
+                <div class="w-8 h-8 mx-auto bg-yellow-100 rounded-full flex items-center justify-center mb-1">
+                  <i class="fas fa-prescription-bottle-alt text-yellow-500 text-xs"></i>
+                </div>
+                <div class="text-xs text-gray-500">保健品</div>
+              </div>
+              <div class="bg-gray-50 p-2 rounded-md text-center">
+                <div class="w-8 h-8 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-1">
+                  <i class="fas fa-heartbeat text-red-500 text-xs"></i>
+                </div>
+                <div class="text-xs text-gray-500">医疗器械</div>
+              </div>
+              <div class="bg-gray-50 p-2 rounded-md text-center">
+                <div class="w-8 h-8 mx-auto bg-indigo-100 rounded-full flex items-center justify-center mb-1">
+                  <i class="fas fa-apple-alt text-indigo-500 text-xs"></i>
+                </div>
+                <div class="text-xs text-gray-500">健康食品</div>
+              </div>
             </div>
           </div>
         </div>
@@ -372,13 +464,23 @@
             
             <div class="flex p-3 bg-yellow-50 rounded-lg">
               <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0 mr-3">
-                <i class="fas fa-pills text-yellow-500 text-sm"></i>
+                <i class="fas fa-prescription-bottle-alt text-yellow-500 text-sm"></i>
               </div>
               <div>
                 <div class="font-medium text-gray-800 mb-1">用药提示</div>
                 <p class="text-xs text-gray-600">
                   请严格按照医嘱服用药物，二甲双胍建议饭后服用，可减轻胃肠道反应。
                 </p>
+                <div class="mt-2 flex items-center">
+                  <div class="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center mr-2">
+                    <i class="fas fa-pills text-blue-500 text-xs"></i>
+                  </div>
+                  <span class="text-xs text-blue-600">早晚各一次</span>
+                  <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mx-2">
+                    <i class="fas fa-capsules text-green-500 text-xs"></i>
+                  </div>
+                  <span class="text-xs text-green-600">三餐饭后</span>
+                </div>
               </div>
             </div>
           </div>
