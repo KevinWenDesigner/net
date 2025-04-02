@@ -257,7 +257,7 @@
               </div>
               <div>
                 <div class="message message-doctor">
-                  好的，请问您的体温是多少？咳嗽是干咳还是有痰？症状持续多久了？
+                  好的，能详细描述一下您的发烧情况吗？体温大概是多少？症状持续了多长时间？
                 </div>
               </div>
             </div>
@@ -266,7 +266,7 @@
             <div class="flex justify-end mb-4">
               <div>
                 <div class="message message-patient">
-                  体温38.2℃，有痰，黄色的。症状已经持续三天了。
+                  大概37.8度，已经持续三天了。开始只是喉咙不舒服，后来开始咳嗽，昨天开始发烧。
                 </div>
               </div>
               <div class="avatar ml-2">
@@ -275,13 +275,131 @@
             </div>
             
             <!-- 医生消息 -->
-            <div class="flex">
+            <div class="flex mb-4">
               <div class="avatar mr-2">
                 <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="医生头像" class="w-full h-full object-cover">
               </div>
               <div>
-                <div class="message message-doctor slide-in">
-                  从您的症状来看，可能是急性上呼吸道感染。我建议您可以使用布洛芬缓解发热症状，同时可以考虑使用头孢类抗生素和止咳祛痰药物。我会为您开具电子处方，您可以在线购买或到附近药店取药。同时建议您多喝水，注意休息。如症状持续不缓解或加重，建议您去医院进行进一步检查。
+                <div class="message message-doctor">
+                  了解了，您咳嗽时有痰吗？痰是什么颜色的？另外，您有其他症状吗，比如头痛、乏力或者呼吸困难？
+                </div>
+              </div>
+            </div>
+            
+            <!-- 患者消息 -->
+            <div class="flex justify-end">
+              <div>
+                <div class="message message-patient">
+                  有一点白色的痰，没有呼吸困难，但是确实感觉有点乏力，胃口也不太好。
+                </div>
+              </div>
+              <div class="avatar ml-2">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="患者头像" class="w-full h-full object-cover">
+              </div>
+            </div>
+          </div>
+          
+          <!-- 快捷回复 -->
+          <div class="mb-4">
+            <div class="text-sm font-medium text-gray-700 mb-2">常见症状</div>
+            <div>
+              <span class="symptom-tag">发热</span>
+              <span class="symptom-tag">咳嗽</span>
+              <span class="symptom-tag">乏力</span>
+              <span class="symptom-tag">头痛</span>
+              <span class="symptom-tag">喉咙痛</span>
+              <span class="symptom-tag">胸闷</span>
+              <span class="symptom-tag">呼吸困难</span>
+              <span class="symptom-tag">腹痛</span>
+              <span class="symptom-tag">腹泻</span>
+              <span class="symptom-tag">恶心呕吐</span>
+              <span class="symptom-tag">皮疹</span>
+              <span class="symptom-tag">肌肉酸痛</span>
+            </div>
+          </div>
+          
+          <!-- 发送框 -->
+          <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+            <input type="text" placeholder="请输入您的症状或问题" class="flex-1 px-4 py-2 outline-none">
+            <button class="bg-blue-500 text-white px-4 py-2 hover:bg-blue-600">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 功能说明 -->
+        <div class="bg-white rounded-xl shadow-sm p-5">
+          <h2 class="text-lg font-bold text-gray-800 mb-4">患者发起模式流程说明</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+              <div class="w-12 h-12 rounded-full bg-blue-100 mx-auto flex items-center justify-center mb-3">
+                <i class="fas fa-user-edit text-blue-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800 mb-1">第一步</div>
+              <div class="text-sm text-gray-600">填写症状信息</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+              <div class="w-12 h-12 rounded-full bg-blue-100 mx-auto flex items-center justify-center mb-3">
+                <i class="fas fa-user-md text-blue-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800 mb-1">第二步</div>
+              <div class="text-sm text-gray-600">选择合适医生</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+              <div class="w-12 h-12 rounded-full bg-blue-100 mx-auto flex items-center justify-center mb-3">
+                <i class="fas fa-comments text-blue-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800 mb-1">第三步</div>
+              <div class="text-sm text-gray-600">在线问诊沟通</div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+              <div class="w-12 h-12 rounded-full bg-blue-100 mx-auto flex items-center justify-center mb-3">
+                <i class="fas fa-file-prescription text-blue-500"></i>
+              </div>
+              <div class="font-semibold text-gray-800 mb-1">第四步</div>
+              <div class="text-sm text-gray-600">获取诊疗方案</div>
+            </div>
+          </div>
+          
+          <!-- 优势介绍 -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-800 mb-3">患者发起模式优势</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="flex bg-gray-50 rounded-lg p-4">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-clock text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">响应迅速</div>
+                  <div class="text-sm text-gray-600">平均3分钟内医生响应，解决患者急需</div>
+                </div>
+              </div>
+              <div class="flex bg-gray-50 rounded-lg p-4">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-map-marker-alt text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">便捷高效</div>
+                  <div class="text-sm text-gray-600">足不出户即可获得专业医疗建议</div>
+                </div>
+              </div>
+              <div class="flex bg-gray-50 rounded-lg p-4">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-shield-alt text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">安全隐私</div>
+                  <div class="text-sm text-gray-600">全程加密，保障患者隐私与信息安全</div>
+                </div>
+              </div>
+              <div class="flex bg-gray-50 rounded-lg p-4">
+                <div class="text-blue-500 mr-3">
+                  <i class="fas fa-history text-xl"></i>
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-800 mb-1">记录留存</div>
+                  <div class="text-sm text-gray-600">问诊内容自动保存，方便日后复诊参考</div>
                 </div>
               </div>
             </div>
@@ -388,10 +506,27 @@
             </div>
           </div>
         </div>
+        
+        <div class="bg-gray-50 rounded-lg p-4 text-center">
+          <div class="font-semibold text-gray-800 mb-2">立即体验患者发起模式</div>
+          <div class="text-sm text-gray-600 mb-4">随时随地，专业医疗问诊服务触手可及</div>
+          <button class="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-200">
+            开始咨询 <i class="fas fa-arrow-right ml-1"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
   
+  <footer class="bg-gray-800 text-white py-8 mt-8">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <p class="mb-2">© 2025 医疗健康综合服务系统 | 汉唐医疗集团</p>
+        <p class="text-gray-400 text-sm">提供专业、便捷、高效的医疗服务</p>
+      </div>
+    </div>
+  </footer>
+  
   <script src="../js/main.js"></script>
 </body>
-</html> 
+</html>
