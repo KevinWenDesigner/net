@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汉唐互联网+医疗服务模式</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      background-color: #f0f4f8;
+      overflow-x: hidden;
+    }
+    
+    .slide-container {
+      max-width: 100%;
+      height: calc(100vh - 130px);
+      display: none;
+      transition: opacity 0.5s ease;
+    }
+    
+    .slide-container.active {
+      display: flex;
+    }
+    
+    .slide-navigation {
+      position: fixed;
+      width: 80px;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      transform: translateX(-80px);
+      transition: transform 0.3s ease;
+    }
+    
+    .slide-navigation:hover {
+      transform: translateX(0);
+    }
+    
+    .slide-navigation-item {
+      width: 60px;
+      height: 45px;
+      margin: 5px 0;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .slide-navigation-item:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .slide-navigation-item.active {
+      background-color: #3b82f6;
+    }
+    
+    .category-title {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .category-title:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 5px;
+      background-color: currentColor;
+      border-radius: 4px;
+    }
+    
+    .page-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      height: 240px;
+      position: relative;
+    }
+    
+    .page-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .page-card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .page-thumbnail {
+      width: 100%;
+      height: 140px;
+      background-color: #f8fafc;
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .full-page-view {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .full-page-view.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    .full-page-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1010;
+      transition: background-color 0.2s ease;
+    }
+    
+    .close-btn:hover {
+      background-color: rgba(220, 38, 38, 0.8);
+    }
+    
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+    
+    .progress-indicator {
+      height: 100%;
+      background-color: #3b82f6;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+      .slide-container {
+        height: auto;
+        padding: 20px;
+      }
+      
+      .page-card {
+        height: 200px;
+      }
+      
+      .slide-navigation {
+        width: 60px;
+      }
+      
+      .slide-navigation-item {
+        width: 50px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面顶部 -->
+  <header class="bg-white shadow-sm p-4 relative z-10">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">汉唐互联网+医疗服务模式</h1>
+      <div class="flex space-x-2 items-center">
+        <span class="text-gray-600">版本: 1.0.0</span>
+        <span class="text-gray-600">|</span>
+        <span class="text-gray-600">汉唐医疗集团</span>
+        <button id="fullscreen-btn" class="ml-4 bg-blue-500 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-600 transition">
+          <i class="fas fa-expand mr-1"></i> 演示模式
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 进度条 -->
+  <div class="progress-bar">
+    <div id="progress-indicator" class="progress-indicator"></div>
+  </div>
+
+  <!-- 幻灯片导航 -->
+  <div class="slide-navigation">
+    <div class="slide-navigation-item active" data-slide="slide-1">
+      <i class="fas fa-home"></i>
+    </div>
+    <div class="slide-navigation-item" data-slide="slide-2">
+      <i class="fas fa-comment-medical"></i>
+    </div>
+    <div class="slide-navigation-item" data-slide="slide-3">
+      <i class="fas fa-pills"></i>
+    </div>
+    <div class="slide-navigation-item" data-slide="slide-4">
+      <i class="fas fa-hospital"></i>
+    </div>
+    <div class="slide-navigation-item" data-slide="slide-5">
+      <i class="fas fa-network-wired"></i>
+    </div>
+  </div>
+
+  <!-- 主要内容区域 -->
+  <div class="container mx-auto py-6 px-4">
+    <!-- 首页 -->
+    <div id="slide-1" class="slide-container active">
+      <div class="w-full h-full flex flex-col items-center justify-center">
+        <div class="text-center mb-12">
+          <h1 class="text-5xl font-bold text-blue-600 mb-4">汉唐互联网+医疗服务模式</h1>
+          <p class="text-xl text-gray-600 mb-8">整合优质医疗资源 · 高效连接患者需求</p>
+          <div class="flex space-x-4 justify-center">
+            <button class="next-slide-btn bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition" data-target="slide-2">
+              开始浏览 <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          <div class="p-6 bg-blue-50 rounded-xl text-center">
+            <div class="w-16 h-16 rounded-full bg-blue-100 mx-auto flex items-center justify-center mb-4">
+              <i class="fas fa-comment-medical text-blue-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">在线问诊平台</h3>
+            <p class="text-gray-600">连接医患，高效解决就医需求</p>
+          </div>
+          
+          <div class="p-6 bg-green-50 rounded-xl text-center">
+            <div class="w-16 h-16 rounded-full bg-green-100 mx-auto flex items-center justify-center mb-4">
+              <i class="fas fa-pills text-green-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">智能购药系统</h3>
+            <p class="text-gray-600">便捷获取药品，优化用药管理</p>
+          </div>
+          
+          <div class="p-6 bg-purple-50 rounded-xl text-center">
+            <div class="w-16 h-16 rounded-full bg-purple-100 mx-auto flex items-center justify-center mb-4">
+              <i class="fas fa-hospital text-purple-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">线下协同服务网络</h3>
+            <p class="text-gray-600">线上线下一体化医疗服务</p>
+          </div>
+          
+          <div class="p-6 bg-red-50 rounded-xl text-center">
+            <div class="w-16 h-16 rounded-full bg-red-100 mx-auto flex items-center justify-center mb-4">
+              <i class="fas fa-network-wired text-red-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">价值积累与拓展</h3>
+            <p class="text-gray-600">持续积累价值，拓展医疗服务</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 在线问诊平台 -->
+    <div id="slide-2" class="slide-container">
+      <div class="w-full">
+        <h2 class="text-3xl font-bold text-blue-600 category-title mb-8">一、在线问诊平台</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="page-card" data-page="patient-initiated.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f0f9ff/1e40af?text=患者发起模式')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-blue-100 text-blue-500 mr-3">
+                  <i class="fas fa-comment-medical"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">患者发起模式</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="async-diagnosis.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f0f9ff/1e40af?text=异步诊疗流程')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-blue-100 text-blue-500 mr-3">
+                  <i class="fas fa-procedures"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">异步诊疗流程</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="passive-consultation.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f0f9ff/1e40af?text=被动式问诊')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-blue-100 text-blue-500 mr-3">
+                  <i class="fas fa-hospital-user"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">被动式问诊</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="service-network.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f0f9ff/1e40af?text=服务网络')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-blue-100 text-blue-500 mr-3">
+                  <i class="fas fa-hospital-alt"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">服务网络</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between mt-12">
+          <button class="prev-slide-btn bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">
+            <i class="fas fa-arrow-left mr-2"></i> 返回首页
+          </button>
+          <button class="next-slide-btn bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition">
+            智能购药系统 <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 智能购药系统 -->
+    <div id="slide-3" class="slide-container">
+      <div class="w-full">
+        <h2 class="text-3xl font-bold text-green-600 category-title mb-8">二、智能购药系统</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="page-card" data-page="prescription-express.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/effaf5/047857?text=在线问诊处方直通车')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-green-100 text-green-500 mr-3">
+                  <i class="fas fa-pills"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">在线问诊处方直通车</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="chronic-management.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/effaf5/047857?text=慢病管理与药品供应')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-green-100 text-green-500 mr-3">
+                  <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">慢病管理与药品供应</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between mt-12">
+          <button class="prev-slide-btn bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">
+            <i class="fas fa-arrow-left mr-2"></i> 在线问诊平台
+          </button>
+          <button class="next-slide-btn bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition">
+            线下协同服务网络 <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 线下协同服务网络 -->
+    <div id="slide-4" class="slide-container">
+      <div class="w-full">
+        <h2 class="text-3xl font-bold text-purple-600 category-title mb-8">三、线下协同服务网络</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="page-card" data-page="smart-pharmacy.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f5f3ff/6d28d9?text=智慧药房体系')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-purple-100 text-purple-500 mr-3">
+                  <i class="fas fa-capsules"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">智慧药房体系</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="offline-clinic.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f5f3ff/6d28d9?text=线下门诊业务流程')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-purple-100 text-purple-500 mr-3">
+                  <i class="fas fa-hospital"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">线下门诊业务流程</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="standard-clinic.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f5f3ff/6d28d9?text=固定门诊标准化流程')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-purple-100 text-purple-500 mr-3">
+                  <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">固定门诊标准化流程</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="regional-check-center.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f5f3ff/6d28d9?text=区域检查中心')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-purple-100 text-purple-500 mr-3">
+                  <i class="fas fa-microscope"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">区域检查中心</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="regional-test-center.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/f5f3ff/6d28d9?text=区域检验中心')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-purple-100 text-purple-500 mr-3">
+                  <i class="fas fa-vial"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">区域检验中心</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between mt-12">
+          <button class="prev-slide-btn bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">
+            <i class="fas fa-arrow-left mr-2"></i> 智能购药系统
+          </button>
+          <button class="next-slide-btn bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition">
+            价值积累与拓展 <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 价值积累与拓展 -->
+    <div id="slide-5" class="slide-container">
+      <div class="w-full">
+        <h2 class="text-3xl font-bold text-red-600 category-title mb-8">四、价值积累与拓展</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="page-card" data-page="private-patient-management.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/fef2f2/dc2626?text=私域患者管理')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-red-100 text-red-500 mr-3">
+                  <i class="fas fa-user-friends"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">私域患者管理</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="external-network.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/fef2f2/dc2626?text=外联网络建设')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-red-100 text-red-500 mr-3">
+                  <i class="fas fa-network-wired"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">外联网络建设</h3>
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-card" data-page="chronic-center.html">
+            <div class="page-thumbnail" style="background-image: url('https://via.placeholder.com/600x400/fef2f2/dc2626?text=慢病管理中心')"></div>
+            <div class="p-4">
+              <div class="flex items-center">
+                <div class="page-card-icon bg-red-100 text-red-500 mr-3">
+                  <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">慢病管理中心</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between mt-12">
+          <button class="prev-slide-btn bg-gray-300 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-400 transition">
+            <i class="fas fa-arrow-left mr-2"></i> 线下协同服务网络
+          </button>
+          <button class="next-slide-btn bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition" data-target="slide-1">
+            返回首页 <i class="fas fa-home ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全屏查看页面 -->
+  <div id="full-page-view" class="full-page-view">
+    <div class="close-btn" id="close-full-page">
+      <i class="fas fa-times"></i>
+    </div>
+    <iframe id="full-page-iframe" class="full-page-iframe" src=""></iframe>
+  </div>
+
+  <footer class="bg-white shadow-sm py-4 mt-8">
+    <div class="container mx-auto text-center text-gray-600">
+      <p>© 2025 汉唐互联网+医疗服务模式 | 汉唐医疗集团</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 幻灯片切换功能
+      const slides = document.querySelectorAll('.slide-container');
+      const navItems = document.querySelectorAll('.slide-navigation-item');
+      const progressIndicator = document.getElementById('progress-indicator');
+      let currentSlideIndex = 0;
+      
+      // 设置进度条
+      function updateProgress() {
+        const progress = (currentSlideIndex / (slides.length - 1)) * 100;
+        progressIndicator.style.width = `${progress}%`;
+      }
+      updateProgress();
+      
+      // 切换幻灯片
+      function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        navItems.forEach(item => item.classList.remove('active'));
+        
+        slides[index].classList.add('active');
+        navItems[index].classList.add('active');
+        
+        currentSlideIndex = index;
+        updateProgress();
+      }
+      
+      // 导航点击事件
+      navItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+          showSlide(index);
+        });
+      });
+      
+      // 下一页/上一页按钮
+      const nextButtons = document.querySelectorAll('.next-slide-btn');
+      const prevButtons = document.querySelectorAll('.prev-slide-btn');
+      
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const target = button.getAttribute('data-target');
+          if (target) {
+            const targetSlide = document.getElementById(target);
+            const index = Array.from(slides).indexOf(targetSlide);
+            showSlide(index);
+          } else {
+            let nextIndex = currentSlideIndex + 1;
+            if (nextIndex >= slides.length) nextIndex = 0;
+            showSlide(nextIndex);
+          }
+        });
+      });
+      
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          let prevIndex = currentSlideIndex - 1;
+          if (prevIndex < 0) prevIndex = slides.length - 1;
+          showSlide(prevIndex);
+        });
+      });
+      
+      // 键盘导航
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+          let nextIndex = currentSlideIndex + 1;
+          if (nextIndex >= slides.length) nextIndex = 0;
+          showSlide(nextIndex);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          let prevIndex = currentSlideIndex - 1;
+          if (prevIndex < 0) prevIndex = slides.length - 1;
+          showSlide(prevIndex);
+        } else if (e.key === 'Home') {
+          showSlide(0);
+        } else if (e.key === 'End') {
+          showSlide(slides.length - 1);
+        }
+      });
+      
+      // 页面卡片点击事件
+      const pageCards = document.querySelectorAll('.page-card');
+      const fullPageView = document.getElementById('full-page-view');
+      const fullPageIframe = document.getElementById('full-page-iframe');
+      const closeFullPageBtn = document.getElementById('close-full-page');
+      
+      pageCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const page = card.getAttribute('data-page');
+          fullPageIframe.src = `pages/${page}`;
+          fullPageView.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      closeFullPageBtn.addEventListener('click', () => {
+        fullPageView.classList.remove('active');
+        setTimeout(() => {
+          fullPageIframe.src = '';
+        }, 300);
+        document.body.style.overflow = '';
+      });
+      
+      // 全屏演示模式
+      const fullscreenBtn = document.getElementById('fullscreen-btn');
+      
+      fullscreenBtn.addEventListener('click', () => {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          document.documentElement.msRequestFullscreen();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
